@@ -1,5 +1,5 @@
 const express = require('express');
-const { neon } = require('neon');
+const { neon } = require('@neondatabase/serverless');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -245,7 +245,6 @@ async function initiateMpesaStkPush(phone, amount, reference, userId) {
   }
 
   // ── MOCK MPESA (demo mode) ──
-  // Simulate successful STK Push after 3 seconds
   const mockCheckoutId = 'ws_CO_' + Date.now() + '_' + generateRandomCode(6);
   await sql`
     INSERT INTO mpesa_transactions (reference, user_id, phone, amount, sd_amount, status, checkout_request_id)
@@ -259,7 +258,6 @@ async function initiateMpesaStkPush(phone, amount, reference, userId) {
   // Simulate callback after 5 seconds (in real app, this comes from Safaricom)
   setTimeout(async () => {
     try {
-      // Credit wallet
       await sql`UPDATE wallet SET sd_balance = sd_balance + ${sdAmount} WHERE user_id = ${userId}`;
       await sql`
         INSERT INTO transactions (user_id, type, amount, description)
@@ -289,7 +287,6 @@ app.post('/api/mpesa-callback', async (req, res) => {
     const checkoutId = body?.Body?.stkCallback?.CheckoutRequestID;
 
     if (resultCode === '0') {
-      // Success
       const [txn] = await sql`SELECT * FROM mpesa_transactions WHERE checkout_request_id = ${checkoutId}`;
       if (txn && txn.status === 'pending') {
         const sdAmount = txn.sd_amount;
@@ -302,7 +299,6 @@ app.post('/api/mpesa-callback', async (req, res) => {
         await sql`DELETE FROM pending_topups WHERE reference = ${txn.reference}`;
       }
     } else {
-      // Failed
       await sql`UPDATE mpesa_transactions SET status = 'failed' WHERE checkout_request_id = ${checkoutId}`;
     }
     res.json({ ResultCode: 0, ResultDesc: 'Success' });
@@ -484,7 +480,6 @@ app.post('/api/topup', async (req, res) => {
   const sdAmount = Math.floor((amountKsh / 1.6));
 
   if (paymentMethod === 'mpesa') {
-    // ─── M-PESA STK PUSH ──────────────────────────────────────────────
     if (!phone) {
       return res.status(400).json({ error: 'Phone number required for M-Pesa' });
     }
@@ -500,9 +495,7 @@ app.post('/api/topup', async (req, res) => {
       return res.status(500).json({ error: result.message });
     }
   } else {
-    // ─── PAYSTACK ──────────────────────────────────────────────────────
     if (!PAYSTACK_SECRET) {
-      // Mock: credit immediately
       await sql`UPDATE wallet SET sd_balance = sd_balance + ${sdAmount} WHERE user_id = ${userId}`;
       await sql`INSERT INTO transactions (user_id, type, amount, description) VALUES (${userId}, 'credit', ${sdAmount}, 'Top-up ${amountKsh} KSH (mock)')`;
       return res.json({
