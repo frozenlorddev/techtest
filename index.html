@@ -7,1375 +7,260 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ─── RESET & BASE ─── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-        body {
-            color: #eef2ff;
-            min-height: 100vh;
-            padding: 16px 14px 100px;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.ibb.co/DPYbLLJm/cb45d5e6c15c.jpg') no-repeat center center / cover;
-            z-index: -2;
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 13, 26, 0.78);
-            z-index: -1;
-        }
-        .app {
-            max-width: 480px;
-            width: 100%;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #6c3cff;
-            border-radius: 12px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        body { color: #eef2ff; min-height: 100vh; padding: 16px 14px 100px; display: flex; justify-content: center; position: relative; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://i.ibb.co/DPYbLLJm/cb45d5e6c15c.jpg') no-repeat center center / cover; z-index: -2; }
+        body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 13, 26, 0.78); z-index: -1; }
+        .app { max-width: 480px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #6c3cff; border-radius: 12px; }
 
         /* ─── HEADER ─── */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 4px 8px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
-        }
-        .brand-text {
-            font-weight: 700;
-            font-size: 20px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .brand-text span {
-            font-weight: 300;
-            font-size: 14px;
-            -webkit-text-fill-color: #94a3b8;
-            margin-left: 4px;
-        }
-        .header-actions {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .header-actions i {
-            font-size: 20px;
-            color: #94a3b8;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .header-actions i:hover {
-            color: #c084fc;
-        }
-        .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 15px;
-            color: #fff;
-            box-shadow: 0 0 0 2px #1e2130;
-            cursor: pointer;
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 4px 8px; flex-wrap: wrap; gap: 8px; }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #7c3aed, #3b82f6); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: #fff; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35); }
+        .brand-text { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; background: linear-gradient(to right, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .brand-text span { font-weight: 300; font-size: 14px; -webkit-text-fill-color: #94a3b8; margin-left: 4px; }
+        .header-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+        .header-actions i { font-size: 20px; color: #94a3b8; cursor: pointer; transition: 0.2s; }
+        .header-actions i:hover { color: #c084fc; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #3b82f6); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: #fff; box-shadow: 0 0 0 2px #1e2130; cursor: pointer; }
 
         /* ─── PAGES ─── */
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        .page.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .page { display: none; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ─── LANDING ─── */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 70vh;
-            padding: 20px 10px;
-        }
-        .hero h1 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffd700, #ff6b00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-        .hero .welcome-text {
-            font-size: 1.05rem;
-            color: #cbd5e1;
-            max-width: 400px;
-            margin: 0 auto 30px;
-            line-height: 1.8;
-            letter-spacing: 0.3px;
-        }
-        .hero .welcome-text strong {
-            color: #c084fc;
-            font-weight: 700;
-        }
-        .hero .btn-primary {
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            border: none;
-            color: #fff;
-            padding: 14px 44px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
-            transition: 0.25s;
-        }
-        .hero .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 30px rgba(124, 58, 237, 0.6);
-        }
-        .circle-badge {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: url('https://i.ibb.co/tptyD9dV/3eb6a60210b6.jpg') no-repeat center center / cover;
-            border: 2px solid rgba(124, 58, 237, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px auto 20px;
-            box-shadow: 0 0 60px rgba(124, 58, 237, 0.12);
-            padding: 15px;
-            text-align: center;
-            transition: 0.3s;
-            position: relative;
-        }
-        .circle-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: rgba(11, 13, 26, 0.5);
-            z-index: 0;
-        }
-        .circle-badge:hover {
-            border-color: rgba(124, 58, 237, 0.8);
-            box-shadow: 0 0 80px rgba(124, 58, 237, 0.2);
-            transform: scale(1.03);
-        }
-        .circle-badge .badge-text {
-            position: relative;
-            z-index: 1;
-            font-size: 0.85rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: #c084fc;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
-        }
-        .circle-badge .badge-text .small {
-            font-size: 0.6rem;
-            color: #94a3b8;
-            font-weight: 400;
-        }
+        .hero { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh; padding: 20px 10px; }
+        .hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 20px; background: linear-gradient(135deg, #ffd700, #ff6b00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+        .hero .welcome-text { font-size: 1.05rem; color: #cbd5e1; max-width: 400px; margin: 0 auto 30px; line-height: 1.8; letter-spacing: 0.3px; }
+        .hero .welcome-text strong { color: #c084fc; font-weight: 700; }
+        .hero .btn-primary { background: linear-gradient(135deg, #7c3aed, #3b82f6); border: none; color: #fff; padding: 14px 44px; border-radius: 60px; font-weight: 600; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4); transition: 0.25s; }
+        .hero .btn-primary:hover { transform: scale(1.05); box-shadow: 0 6px 30px rgba(124, 58, 237, 0.6); }
+        .circle-badge { width: 140px; height: 140px; border-radius: 50%; background: url('https://i.ibb.co/tptyD9dV/3eb6a60210b6.jpg') no-repeat center center / cover; border: 2px solid rgba(124, 58, 237, 0.4); display: flex; align-items: center; justify-content: center; margin: 10px auto 20px; box-shadow: 0 0 60px rgba(124, 58, 237, 0.12); padding: 15px; text-align: center; transition: 0.3s; position: relative; }
+        .circle-badge::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background: rgba(11, 13, 26, 0.5); z-index: 0; }
+        .circle-badge:hover { border-color: rgba(124, 58, 237, 0.8); box-shadow: 0 0 80px rgba(124, 58, 237, 0.2); transform: scale(1.03); }
+        .circle-badge .badge-text { position: relative; z-index: 1; font-size: 0.85rem; font-weight: 700; line-height: 1.3; color: #c084fc; letter-spacing: 0.5px; text-shadow: 0 0 20px rgba(124, 58, 237, 0.15); }
+        .circle-badge .badge-text .small { font-size: 0.6rem; color: #94a3b8; font-weight: 400; }
 
         /* ─── FORMS ─── */
-        .form-container {
-            max-width: 400px;
-            margin: 30px auto;
-            background: rgba(20, 24, 43, 0.88);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            padding: 30px 24px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-        }
-        .form-container h2 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 6px;
-            background: linear-gradient(to right, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .form-container .sub {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-        }
-        .form-container label {
-            display: block;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            margin: 14px 0 4px;
-        }
-        .form-container input {
-            width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            background: rgba(0, 0, 0, 0.3);
-            color: #eef2ff;
-            font-size: 1rem;
-            transition: 0.2s;
-        }
-        .form-container input:focus {
-            outline: none;
-            border-color: #7c3aed;
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-        }
-        .form-container .btn-submit {
-            width: 100%;
-            padding: 14px;
-            margin-top: 24px;
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            border: none;
-            border-radius: 60px;
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
-        }
-        .form-container .btn-submit:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 30px rgba(124, 58, 237, 0.5);
-        }
-        .form-footer {
-            text-align: center;
-            margin-top: 18px;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        .form-footer a {
-            color: #7c3aed;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-        .error-msg {
-            color: #f87171;
-            font-size: 0.9rem;
-            margin-top: 8px;
-            text-align: center;
-        }
-        .success-msg {
-            color: #34d399;
-            font-size: 0.9rem;
-            margin-top: 8px;
-            text-align: center;
-        }
+        .form-container { max-width: 400px; margin: 30px auto; background: rgba(20, 24, 43, 0.88); backdrop-filter: blur(8px); border-radius: 24px; padding: 30px 24px; border: 1px solid rgba(30, 36, 64, 0.5); }
+        .form-container h2 { text-align: center; font-size: 1.8rem; margin-bottom: 6px; background: linear-gradient(to right, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .form-container .sub { text-align: center; color: #94a3b8; font-size: 0.95rem; margin-bottom: 24px; }
+        .form-container label { display: block; font-size: 0.85rem; color: #cbd5e1; margin: 14px 0 4px; }
+        .form-container input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(30, 36, 64, 0.5); background: rgba(0, 0, 0, 0.3); color: #eef2ff; font-size: 1rem; transition: 0.2s; }
+        .form-container input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2); }
+        .form-container .btn-submit { width: 100%; padding: 14px; margin-top: 24px; background: linear-gradient(135deg, #7c3aed, #3b82f6); border: none; border-radius: 60px; color: #fff; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: 0.25s; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3); }
+        .form-container .btn-submit:hover { transform: scale(1.02); box-shadow: 0 6px 30px rgba(124, 58, 237, 0.5); }
+        .form-footer { text-align: center; margin-top: 18px; color: #94a3b8; font-size: 0.9rem; }
+        .form-footer a { color: #7c3aed; font-weight: 500; cursor: pointer; text-decoration: none; }
+        .form-footer a:hover { text-decoration: underline; }
+        .error-msg { color: #f87171; font-size: 0.9rem; margin-top: 8px; text-align: center; }
+        .success-msg { color: #34d399; font-size: 0.9rem; margin-top: 8px; text-align: center; }
 
         /* ─── GOOGLE LOGIN ─── */
-        .google-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 12px;
-            margin-top: 16px;
-            background: #fff;
-            border: none;
-            border-radius: 60px;
-            color: #1a1a2e;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-        }
-        .google-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-        }
-        .google-btn img {
-            width: 20px;
-            height: 20px;
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 20px 0 8px;
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(30, 36, 64, 0.4);
-        }
+        .google-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 12px; margin-top: 16px; background: #fff; border: none; border-radius: 60px; color: #1a1a2e; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.25s; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2); }
+        .google-btn:hover { transform: scale(1.02); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3); }
+        .google-btn img { width: 20px; height: 20px; }
+        .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0 8px; color: #64748b; font-size: 0.85rem; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(30, 36, 64, 0.4); }
 
         /* ─── DASHBOARD ─── */
-        .greeting {
-            margin: 16px 0 10px;
-        }
-        .greeting h2 {
-            font-size: 22px;
-            font-weight: 600;
-        }
-        .greeting h2 i {
-            color: #fbbf24;
-            margin-right: 6px;
-        }
-        .greeting p {
-            color: #94a3b8;
-            font-size: 14px;
-            margin-top: 2px;
-        }
+        .greeting { margin: 16px 0 10px; }
+        .greeting h2 { font-size: 22px; font-weight: 600; }
+        .greeting h2 i { color: #fbbf24; margin-right: 6px; }
+        .greeting p { color: #94a3b8; font-size: 14px; margin-top: 2px; }
 
-        .quick-banner {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 16px 0 20px;
-            flex-wrap: wrap;
-        }
-        .quick-banner .qb-item {
-            flex: 1;
-            min-width: 100px;
-            max-width: 180px;
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 16px;
-            padding: 14px 10px;
-            text-align: center;
-            border: 1px solid rgba(30, 36, 64, 0.6);
-            transition: 0.25s;
-            cursor: pointer;
-        }
-        .quick-banner .qb-item:hover {
-            border-color: #6c3cff;
-            background: rgba(26, 31, 58, 0.9);
-        }
-        .quick-banner .qb-item i {
-            font-size: 22px;
-            color: #7c3aed;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .quick-banner .qb-item span {
-            font-size: 12px;
-            font-weight: 500;
-            color: #cbd5e1;
-        }
+        .quick-banner { display: flex; justify-content: center; gap: 12px; margin: 16px 0 20px; flex-wrap: wrap; }
+        .quick-banner .qb-item { flex: 1; min-width: 100px; max-width: 180px; background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(6px); border-radius: 16px; padding: 14px 10px; text-align: center; border: 1px solid rgba(30, 36, 64, 0.6); transition: 0.25s; cursor: pointer; }
+        .quick-banner .qb-item:hover { border-color: #6c3cff; background: rgba(26, 31, 58, 0.9); }
+        .quick-banner .qb-item i { font-size: 22px; color: #7c3aed; display: block; margin-bottom: 4px; }
+        .quick-banner .qb-item span { font-size: 12px; font-weight: 500; color: #cbd5e1; }
 
         /* ─── VOUCHER ROW ─── */
-        .voucher-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 16px;
-            padding: 10px 14px;
-            border: 1px solid rgba(30, 36, 64, 0.6);
-            margin: 10px 0 16px;
-            flex-wrap: wrap;
-        }
-        .voucher-row input {
-            flex: 1;
-            min-width: 120px;
-            padding: 10px 14px;
-            border-radius: 40px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            background: rgba(0, 0, 0, 0.3);
-            color: #eef2ff;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-        .voucher-row input:focus {
-            outline: none;
-            border-color: #7c3aed;
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-        }
-        .voucher-row .voucher-btn {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border: none;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.25s;
-            white-space: nowrap;
-            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
-        }
-        .voucher-row .voucher-btn:hover {
-            transform: scale(1.04);
-            box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
-        }
-        .voucher-row .voucher-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .voucher-row .voucher-msg {
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-left: 4px;
-        }
-        .voucher-row .voucher-msg.success {
-            color: #34d399;
-        }
-        .voucher-row .voucher-msg.error {
-            color: #f87171;
-        }
+        .voucher-row { display: flex; gap: 8px; align-items: center; background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(6px); border-radius: 16px; padding: 10px 14px; border: 1px solid rgba(30, 36, 64, 0.6); margin: 10px 0 16px; flex-wrap: wrap; }
+        .voucher-row input { flex: 1; min-width: 120px; padding: 10px 14px; border-radius: 40px; border: 1px solid rgba(30, 36, 64, 0.5); background: rgba(0, 0, 0, 0.3); color: #eef2ff; font-size: 0.95rem; transition: 0.2s; }
+        .voucher-row input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2); }
+        .voucher-row .voucher-btn { background: linear-gradient(135deg, #f59e0b, #d97706); border: none; color: #fff; padding: 10px 20px; border-radius: 40px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.25s; white-space: nowrap; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3); }
+        .voucher-row .voucher-btn:hover { transform: scale(1.04); box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5); }
+        .voucher-row .voucher-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .voucher-row .voucher-msg { font-size: 0.85rem; font-weight: 500; margin-left: 4px; }
+        .voucher-row .voucher-msg.success { color: #34d399; }
+        .voucher-row .voucher-msg.error { color: #f87171; }
 
         /* ─── BALANCE CARD ─── */
-        .balance-card {
-            background: rgba(20, 24, 43, 0.88);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            padding: 24px 20px 20px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .balance-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%);
-            pointer-events: none;
-        }
-        .balance-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .balance-label {
-            color: #94a3b8;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-        .balance-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .balance-actions button {
-            background: rgba(30, 36, 64, 0.7);
-            border: none;
-            color: #eef2ff;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-        }
-        .balance-actions button:hover {
-            background: rgba(45, 53, 88, 0.8);
-        }
-        .balance-actions button i {
-            font-size: 13px;
-        }
-        .balance-main {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        .balance-xd {
-            font-size: 38px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .balance-ksh {
-            font-size: 18px;
-            font-weight: 500;
-            color: #94a3b8;
-        }
-        .balance-change {
-            font-size: 14px;
-            font-weight: 600;
-            color: #f87171;
-            background: rgba(248, 113, 113, 0.15);
-            padding: 2px 12px;
-            border-radius: 40px;
-            margin-left: 4px;
-        }
-        .balance-change.positive {
-            color: #34d399;
-            background: rgba(52, 211, 153, 0.15);
-        }
+        .balance-card { background: rgba(20, 24, 43, 0.88); backdrop-filter: blur(8px); border-radius: 24px; padding: 24px 20px 20px; border: 1px solid rgba(30, 36, 64, 0.5); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6); margin-bottom: 20px; position: relative; overflow: hidden; }
+        .balance-card::before { content: ''; position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%); pointer-events: none; }
+        .balance-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+        .balance-label { color: #94a3b8; font-size: 13px; font-weight: 500; letter-spacing: 0.3px; }
+        .balance-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .balance-actions button { background: rgba(30, 36, 64, 0.7); border: none; color: #eef2ff; padding: 6px 14px; border-radius: 40px; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; backdrop-filter: blur(4px); }
+        .balance-actions button:hover { background: rgba(45, 53, 88, 0.8); }
+        .balance-actions button i { font-size: 13px; }
+        .balance-main { display: flex; align-items: baseline; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+        .balance-xd { font-size: 38px; font-weight: 700; letter-spacing: -0.5px; background: linear-gradient(to right, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .balance-ksh { font-size: 18px; font-weight: 500; color: #94a3b8; }
+        .balance-change { font-size: 14px; font-weight: 600; color: #f87171; background: rgba(248, 113, 113, 0.15); padding: 2px 12px; border-radius: 40px; margin-left: 4px; }
+        .balance-change.positive { color: #34d399; background: rgba(52, 211, 153, 0.15); }
 
         /* ─── STATS ─── */
-        .stats-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .stat-card {
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 18px;
-            padding: 16px 14px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            transition: 0.2s;
-        }
-        .stat-card:hover {
-            border-color: rgba(59, 63, 107, 0.8);
-        }
-        .stat-card .stat-label {
-            color: #94a3b8;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-        }
-        .stat-card .stat-value {
-            font-size: 26px;
-            font-weight: 700;
-            margin-top: 4px;
-            letter-spacing: -0.3px;
-        }
-        .stat-card .stat-value i {
-            font-size: 16px;
-            color: #7c3aed;
-            margin-right: 4px;
-        }
-        .stat-card .stat-sub {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 2px;
-        }
+        .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(6px); border-radius: 18px; padding: 16px 14px; border: 1px solid rgba(30, 36, 64, 0.5); transition: 0.2s; }
+        .stat-card:hover { border-color: rgba(59, 63, 107, 0.8); }
+        .stat-card .stat-label { color: #94a3b8; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+        .stat-card .stat-value { font-size: 26px; font-weight: 700; margin-top: 4px; letter-spacing: -0.3px; }
+        .stat-card .stat-value i { font-size: 16px; color: #7c3aed; margin-right: 4px; }
+        .stat-card .stat-sub { font-size: 12px; color: #64748b; margin-top: 2px; }
 
         /* ─── QUICK ACCESS ─── */
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 22px 0 12px;
-        }
-        .section-title h3 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .section-title a {
-            color: #7c3aed;
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        .quick-access {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .qa-item {
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 16px;
-            padding: 14px 6px;
-            text-align: center;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            transition: 0.2s;
-            cursor: pointer;
-            color: #eef2ff;
-        }
-        .qa-item:hover {
-            border-color: #6c3cff;
-            background: rgba(26, 31, 58, 0.9);
-            transform: translateY(-2px);
-        }
-        .qa-item i {
-            font-size: 22px;
-            color: #7c3aed;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .qa-item span {
-            font-size: 11px;
-            font-weight: 500;
-            color: #cbd5e1;
-        }
-        .qa-item .badge {
-            display: inline-block;
-            background: #7c3aed;
-            color: #fff;
-            font-size: 8px;
-            font-weight: 700;
-            padding: 1px 8px;
-            border-radius: 40px;
-            margin-top: 2px;
-        }
+        .section-title { display: flex; justify-content: space-between; align-items: center; margin: 22px 0 12px; }
+        .section-title h3 { font-size: 18px; font-weight: 600; }
+        .section-title a { color: #7c3aed; font-size: 13px; font-weight: 500; text-decoration: none; }
+        .quick-access { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .qa-item { background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(6px); border-radius: 16px; padding: 14px 6px; text-align: center; border: 1px solid rgba(30, 36, 64, 0.5); transition: 0.2s; cursor: pointer; color: #eef2ff; }
+        .qa-item:hover { border-color: #6c3cff; background: rgba(26, 31, 58, 0.9); transform: translateY(-2px); }
+        .qa-item i { font-size: 22px; color: #7c3aed; display: block; margin-bottom: 4px; }
+        .qa-item span { font-size: 11px; font-weight: 500; color: #cbd5e1; }
+        .qa-item .badge { display: inline-block; background: #7c3aed; color: #fff; font-size: 8px; font-weight: 700; padding: 1px 8px; border-radius: 40px; margin-top: 2px; }
 
         /* ─── ACTIVITY ─── */
-        .activity-list {
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 18px;
-            padding: 8px 0;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            margin-bottom: 10px;
-        }
-        .activity-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(26, 31, 58, 0.6);
-            transition: 0.15s;
-        }
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-        .activity-item:hover {
-            background: rgba(26, 31, 58, 0.5);
-        }
-        .activity-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .activity-left .ai-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: rgba(30, 36, 64, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #7c3aed;
-            font-size: 14px;
-        }
-        .activity-left .ai-text {
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .activity-left .ai-text small {
-            display: block;
-            font-weight: 400;
-            font-size: 12px;
-            color: #64748b;
-        }
-        .activity-right {
-            font-size: 13px;
-            font-weight: 600;
-            color: #34d399;
-        }
-        .activity-right.negative {
-            color: #f87171;
-        }
+        .activity-list { background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(6px); border-radius: 18px; padding: 8px 0; border: 1px solid rgba(30, 36, 64, 0.5); margin-bottom: 10px; }
+        .activity-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid rgba(26, 31, 58, 0.6); transition: 0.15s; }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-item:hover { background: rgba(26, 31, 58, 0.5); }
+        .activity-left { display: flex; align-items: center; gap: 12px; }
+        .activity-left .ai-icon { width: 34px; height: 34px; border-radius: 50%; background: rgba(30, 36, 64, 0.7); display: flex; align-items: center; justify-content: center; color: #7c3aed; font-size: 14px; }
+        .activity-left .ai-text { font-size: 14px; font-weight: 500; }
+        .activity-left .ai-text small { display: block; font-weight: 400; font-size: 12px; color: #64748b; }
+        .activity-right { font-size: 13px; font-weight: 600; color: #34d399; }
+        .activity-right.negative { color: #f87171; }
 
         /* ─── BOTS / SERVERS ─── */
-        .bots-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0 16px;
-        }
-        .bots-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .btn-deploy-bot {
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            border: none;
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
-        }
-        .btn-deploy-bot:hover {
-            transform: scale(1.04);
-            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.5);
-        }
-        .bots-list {
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(8px);
-            border-radius: 18px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            padding: 4px 0;
-            margin-bottom: 20px;
-        }
-        .bot-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(26, 31, 58, 0.6);
-            transition: 0.15s;
-        }
-        .bot-item:last-child {
-            border-bottom: none;
-        }
-        .bot-item:hover {
-            background: rgba(26, 31, 58, 0.4);
-        }
-        .bot-item .bot-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        .bot-item .bot-info .bot-name {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .bot-item .bot-info .bot-details {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-        .bot-item .bot-status {
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 2px 10px;
-            border-radius: 40px;
-            text-transform: uppercase;
-        }
-        .bot-status.active {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-        }
-        .bot-status.inactive {
-            background: rgba(248, 113, 113, 0.15);
-            color: #f87171;
-        }
-        .bot-item .bot-actions button {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ccc;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-left: 4px;
-        }
-        .bot-item .bot-actions button:hover {
-            background: rgba(124, 58, 237, 0.2);
-            border-color: #7c3aed;
-            color: #fff;
-        }
-        .bot-item .bot-actions .btn-danger:hover {
-            background: rgba(248, 113, 113, 0.2);
-            border-color: #f87171;
-            color: #f87171;
-        }
+        .bots-header { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 16px; }
+        .bots-header h2 { font-size: 1.5rem; font-weight: 600; }
+        .btn-deploy-bot { background: linear-gradient(135deg, #7c3aed, #3b82f6); border: none; color: #fff; padding: 8px 20px; border-radius: 40px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.25s; box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3); }
+        .btn-deploy-bot:hover { transform: scale(1.04); box-shadow: 0 6px 24px rgba(124, 58, 237, 0.5); }
+        .bots-list { background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(8px); border-radius: 18px; border: 1px solid rgba(30, 36, 64, 0.5); padding: 4px 0; margin-bottom: 20px; }
+        .bot-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid rgba(26, 31, 58, 0.6); transition: 0.15s; }
+        .bot-item:last-child { border-bottom: none; }
+        .bot-item:hover { background: rgba(26, 31, 58, 0.4); }
+        .bot-item .bot-info { display: flex; flex-direction: column; gap: 2px; }
+        .bot-item .bot-info .bot-name { font-weight: 600; font-size: 1rem; }
+        .bot-item .bot-info .bot-details { font-size: 0.8rem; color: #94a3b8; }
+        .bot-item .bot-status { font-size: 0.7rem; font-weight: 600; padding: 2px 10px; border-radius: 40px; text-transform: uppercase; }
+        .bot-status.active { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+        .bot-status.inactive { background: rgba(248, 113, 113, 0.15); color: #f87171; }
+        .bot-item .bot-actions button { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); color: #ccc; padding: 4px 10px; border-radius: 30px; font-size: 0.7rem; cursor: pointer; transition: 0.2s; margin-left: 4px; }
+        .bot-item .bot-actions button:hover { background: rgba(124, 58, 237, 0.2); border-color: #7c3aed; color: #fff; }
+        .bot-item .bot-actions .btn-danger:hover { background: rgba(248, 113, 113, 0.2); border-color: #f87171; color: #f87171; }
 
         /* ─── BOTTOM NAV ─── */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(13, 16, 34, 0.92);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(30, 36, 64, 0.5);
-            padding: 10px 16px 14px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            max-width: 480px;
-            margin: 0 auto;
-            width: 100%;
-            z-index: 100;
-        }
-        .bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            color: #64748b;
-            font-size: 11px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            border: none;
-            background: transparent;
-            padding: 4px 12px;
-            border-radius: 12px;
-        }
-        .bottom-nav .nav-item i {
-            font-size: 20px;
-            transition: 0.2s;
-        }
-        .bottom-nav .nav-item:hover,
-        .bottom-nav .nav-item.active {
-            color: #c084fc;
-        }
-        .bottom-nav .nav-item.active i {
-            color: #7c3aed;
-            text-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
-        }
-        .bottom-nav .nav-item .nav-badge {
-            background: #7c3aed;
-            color: #fff;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 1px 8px;
-            border-radius: 40px;
-            margin-top: 1px;
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(13, 16, 34, 0.92); backdrop-filter: blur(12px); border-top: 1px solid rgba(30, 36, 64, 0.5); padding: 10px 16px 14px; display: flex; justify-content: space-around; align-items: center; max-width: 480px; margin: 0 auto; width: 100%; z-index: 100; }
+        .bottom-nav .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; color: #64748b; font-size: 11px; font-weight: 500; cursor: pointer; transition: 0.2s; border: none; background: transparent; padding: 4px 12px; border-radius: 12px; }
+        .bottom-nav .nav-item i { font-size: 20px; transition: 0.2s; }
+        .bottom-nav .nav-item:hover, .bottom-nav .nav-item.active { color: #c084fc; }
+        .bottom-nav .nav-item.active i { color: #7c3aed; text-shadow: 0 0 20px rgba(124, 58, 237, 0.4); }
+        .bottom-nav .nav-item .nav-badge { background: #7c3aed; color: #fff; font-size: 9px; font-weight: 700; padding: 1px 8px; border-radius: 40px; margin-top: 1px; }
 
         /* ─── TOAST ─── */
-        .toast {
-            position: fixed;
-            bottom: 90px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(26, 31, 58, 0.92);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(59, 63, 107, 0.5);
-            padding: 12px 24px;
-            border-radius: 60px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #eef2ff;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        .toast i {
-            color: #34d399;
-            font-size: 18px;
-        }
+        .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: rgba(26, 31, 58, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(59, 63, 107, 0.5); padding: 12px 24px; border-radius: 60px; font-size: 14px; font-weight: 500; color: #eef2ff; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6); opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; z-index: 999; display: flex; align-items: center; gap: 10px; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast i { color: #34d399; font-size: 18px; }
 
         /* ─── FOOTER ─── */
-        .footer-note {
-            text-align: center;
-            padding: 12px 0 8px;
-            font-size: 11px;
-            color: rgba(71, 85, 105, 0.8);
-            border-top: 1px solid rgba(26, 31, 58, 0.5);
-            margin-top: 6px;
-        }
+        .footer-note { text-align: center; padding: 12px 0 8px; font-size: 11px; color: rgba(71, 85, 105, 0.8); border-top: 1px solid rgba(26, 31, 58, 0.5); margin-top: 6px; }
 
         /* ─── MODALS ─── */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(4px);
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: rgba(20, 24, 43, 0.95);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 30px 24px;
-            max-width: 420px;
-            width: 90%;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-content h2 {
-            color: #c084fc;
-            text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 4px;
-        }
-        .modal-content .modal-sub {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-        .modal-content .plan-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .modal-content .plan-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            border-radius: 16px;
-            padding: 16px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .modal-content .plan-card:hover {
-            border-color: #7c3aed;
-            transform: translateY(-2px);
-        }
-        .modal-content .plan-card.selected {
-            border-color: #7c3aed;
-            background: rgba(124, 58, 237, 0.1);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
-        }
-        .modal-content .plan-card .plan-name {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .modal-content .plan-card .plan-price {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-        .modal-content .plan-card .plan-sd {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #c084fc;
-        }
-        .modal-content .modal-input {
-            width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            background: rgba(0, 0, 0, 0.3);
-            color: #eef2ff;
-            font-size: 1rem;
-            margin-bottom: 12px;
-            transition: 0.2s;
-        }
-        .modal-content .modal-input:focus {
-            outline: none;
-            border-color: #7c3aed;
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-        }
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .modal-actions button {
-            padding: 12px 28px;
-            border: none;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.25s;
-            flex: 1;
-            min-width: 100px;
-        }
-        .btn-buy {
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
-        }
-        .btn-buy:hover {
-            transform: scale(1.04);
-            box-shadow: 0 6px 30px rgba(124, 58, 237, 0.5);
-        }
-        .btn-buy:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-cancel-modal {
-            background: rgba(30, 36, 64, 0.7);
-            color: #94a3b8;
-        }
-        .btn-cancel-modal:hover {
-            background: rgba(45, 53, 88, 0.8);
-        }
-        .btn-open-panel {
-            background: #34d399;
-            color: #0b0b14;
-            box-shadow: 0 4px 16px rgba(52, 211, 153, 0.3);
-        }
-        .btn-open-panel:hover {
-            background: #6ee7b7;
-            transform: scale(1.04);
-        }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
+        .modal.active { display: flex; }
+        .modal-content { background: rgba(20, 24, 43, 0.95); backdrop-filter: blur(12px); border-radius: 24px; padding: 30px 24px; max-width: 420px; width: 90%; border: 1px solid rgba(30, 36, 64, 0.5); max-height: 90vh; overflow-y: auto; }
+        .modal-content h2 { color: #c084fc; text-align: center; font-size: 1.6rem; margin-bottom: 4px; }
+        .modal-content .modal-sub { text-align: center; color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }
+        .modal-content .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .modal-content .plan-card { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(30, 36, 64, 0.5); border-radius: 16px; padding: 16px 12px; text-align: center; cursor: pointer; transition: 0.25s; }
+        .modal-content .plan-card:hover { border-color: #7c3aed; transform: translateY(-2px); }
+        .modal-content .plan-card.selected { border-color: #7c3aed; background: rgba(124, 58, 237, 0.1); box-shadow: 0 0 30px rgba(124, 58, 237, 0.15); }
+        .modal-content .plan-card .plan-name { font-weight: 600; font-size: 1rem; }
+        .modal-content .plan-card .plan-price { font-size: 0.85rem; color: #94a3b8; margin-top: 4px; }
+        .modal-content .plan-card .plan-sd { font-size: 1.2rem; font-weight: 700; color: #c084fc; }
+        .modal-content .modal-input { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid rgba(30, 36, 64, 0.5); background: rgba(0, 0, 0, 0.3); color: #eef2ff; font-size: 1rem; margin-bottom: 12px; transition: 0.2s; }
+        .modal-content .modal-input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2); }
+        .modal-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .modal-actions button { padding: 12px 28px; border: none; border-radius: 60px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.25s; flex: 1; min-width: 100px; }
+        .btn-buy { background: linear-gradient(135deg, #7c3aed, #3b82f6); color: #fff; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3); }
+        .btn-buy:hover { transform: scale(1.04); box-shadow: 0 6px 30px rgba(124, 58, 237, 0.5); }
+        .btn-buy:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-cancel-modal { background: rgba(30, 36, 64, 0.7); color: #94a3b8; }
+        .btn-cancel-modal:hover { background: rgba(45, 53, 88, 0.8); }
+        .btn-open-panel { background: #34d399; color: #0b0b14; box-shadow: 0 4px 16px rgba(52, 211, 153, 0.3); }
+        .btn-open-panel:hover { background: #6ee7b7; transform: scale(1.04); }
 
         /* ─── PROFILE ─── */
-        .profile-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .profile-row:last-child {
-            border-bottom: none;
-        }
-        .profile-row .label {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        .profile-row .value {
-            color: #eef2ff;
-            font-weight: 600;
-        }
-        .creds-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            border-radius: 16px;
-            padding: 16px 18px;
-            margin: 16px 0;
-        }
-        .creds-box .creds-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .creds-box .creds-row:last-child {
-            border-bottom: none;
-        }
-        .creds-box .creds-label {
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-        .creds-box .creds-value {
-            color: #eef2ff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            word-break: break-all;
-        }
-        .creds-box .creds-value i {
-            color: #34d399;
-            margin-right: 6px;
-        }
+        .profile-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+        .profile-row:last-child { border-bottom: none; }
+        .profile-row .label { color: #94a3b8; font-size: 0.9rem; }
+        .profile-row .value { color: #eef2ff; font-weight: 600; }
+        .creds-box { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 16px; padding: 16px 18px; margin: 16px 0; }
+        .creds-box .creds-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+        .creds-box .creds-row:last-child { border-bottom: none; }
+        .creds-box .creds-label { color: #94a3b8; font-size: 0.85rem; }
+        .creds-box .creds-value { color: #eef2ff; font-weight: 600; font-size: 0.95rem; word-break: break-all; }
+        .creds-box .creds-value i { color: #34d399; margin-right: 6px; }
 
         /* ─── ADMIN VOUCHER SECTION ─── */
-        .admin-voucher-section {
-            background: rgba(20, 24, 43, 0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 18px;
-            padding: 16px 18px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            margin: 12px 0 16px;
-        }
-        .admin-voucher-section h4 {
-            color: #c084fc;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-voucher-section .av-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .admin-voucher-section .av-row input {
-            flex: 1;
-            min-width: 100px;
-            padding: 10px 14px;
-            border-radius: 40px;
-            border: 1px solid rgba(30, 36, 64, 0.5);
-            background: rgba(0, 0, 0, 0.3);
-            color: #eef2ff;
-            font-size: 0.95rem;
-        }
-        .admin-voucher-section .av-row input:focus {
-            outline: none;
-            border-color: #7c3aed;
-        }
-        .admin-voucher-section .av-row .btn-gen {
-            background: linear-gradient(135deg, #7c3aed, #3b82f6);
-            border: none;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .admin-voucher-section .av-row .btn-gen:hover {
-            transform: scale(1.04);
-        }
-        .admin-voucher-section .voucher-list {
-            margin-top: 12px;
-            max-height: 160px;
-            overflow-y: auto;
-        }
-        .admin-voucher-section .voucher-list .v-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 0.85rem;
-        }
-        .admin-voucher-section .voucher-list .v-item .v-code {
-            font-weight: 600;
-            color: #c084fc;
-            font-family: monospace;
-        }
-        .admin-voucher-section .voucher-list .v-item .v-status {
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 1px 10px;
-            border-radius: 40px;
-        }
-        .v-status.used {
-            background: rgba(248, 113, 113, 0.15);
-            color: #f87171;
-        }
-        .v-status.unused {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-        }
-        .v-status.expired {
-            background: rgba(251, 191, 36, 0.15);
-            color: #fbbf24;
-        }
+        .admin-voucher-section { background: rgba(20, 24, 43, 0.85); backdrop-filter: blur(6px); border-radius: 18px; padding: 16px 18px; border: 1px solid rgba(30, 36, 64, 0.5); margin: 12px 0 16px; }
+        .admin-voucher-section h4 { color: #c084fc; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .admin-voucher-section .av-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .admin-voucher-section .av-row input { flex: 1; min-width: 100px; padding: 10px 14px; border-radius: 40px; border: 1px solid rgba(30, 36, 64, 0.5); background: rgba(0, 0, 0, 0.3); color: #eef2ff; font-size: 0.95rem; }
+        .admin-voucher-section .av-row input:focus { outline: none; border-color: #7c3aed; }
+        .admin-voucher-section .av-row .btn-gen { background: linear-gradient(135deg, #7c3aed, #3b82f6); border: none; color: #fff; padding: 10px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.25s; }
+        .admin-voucher-section .av-row .btn-gen:hover { transform: scale(1.04); }
+        .admin-voucher-section .voucher-list { margin-top: 12px; max-height: 160px; overflow-y: auto; }
+        .admin-voucher-section .voucher-list .v-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 0.85rem; }
+        .admin-voucher-section .voucher-list .v-item .v-code { font-weight: 600; color: #c084fc; font-family: monospace; }
+        .admin-voucher-section .voucher-list .v-item .v-status { font-size: 0.75rem; font-weight: 600; padding: 1px 10px; border-radius: 40px; }
+        .v-status.used { background: rgba(248, 113, 113, 0.15); color: #f87171; }
+        .v-status.unused { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+        .v-status.expired { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
 
         /* ─── RESPONSIVE ─── */
         @media (max-width: 420px) {
-            .balance-xd {
-                font-size: 30px;
-            }
-            .quick-access {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 6px;
-            }
-            .qa-item {
-                padding: 10px 4px;
-            }
-            .qa-item i {
-                font-size: 18px;
-            }
-            .qa-item span {
-                font-size: 10px;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .plan-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .hero .welcome-text {
-                font-size: 0.95rem;
-            }
+            .balance-xd { font-size: 30px; }
+            .quick-access { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+            .qa-item { padding: 10px 4px; }
+            .qa-item i { font-size: 18px; }
+            .qa-item span { font-size: 10px; }
+            .hero h1 { font-size: 1.8rem; }
+            .plan-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .hero .welcome-text { font-size: 0.95rem; }
         }
-        @media (max-width: 360px) {
-            .balance-actions button {
-                font-size: 10px;
-                padding: 4px 10px;
-            }
-        }
-        .server-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: rgba(20, 24, 43, 0.7);
-            border-radius: 14px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(30, 36, 64, 0.4);
-        }
-        .server-item .server-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .server-item .server-info .server-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .server-item .server-info .server-details {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-        .server-item .server-status {
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 2px 10px;
-            border-radius: 40px;
-            text-transform: uppercase;
-        }
-        .server-item .server-status.active {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-        }
-        .server-item .server-status.inactive {
-            background: rgba(248, 113, 113, 0.15);
-            color: #f87171;
-        }
-        .server-item .server-actions button {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ccc;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-left: 4px;
-        }
-        .server-item .server-actions button:hover {
-            background: rgba(124, 58, 237, 0.2);
-            border-color: #7c3aed;
-            color: #fff;
-        }
-        .server-item .server-actions .btn-danger:hover {
-            background: rgba(248, 113, 113, 0.2);
-            border-color: #f87171;
-            color: #f87171;
-        }
-        .empty-state {
-            text-align: center;
-            color: #94a3b8;
-            padding: 16px;
-        }
-        .server-section h3 {
-            margin: 16px 0 10px;
-            color: #cbd5e1;
-            font-weight: 500;
-        }
-        /* Payment method selection modal styles */
-        .payment-method-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 16px 0;
-        }
-        .payment-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(30, 36, 64, 0.5);
-            border-radius: 16px;
-            padding: 20px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-        .payment-card:hover {
-            border-color: #7c3aed;
-            transform: translateY(-2px);
-        }
-        .payment-card.selected {
-            border-color: #7c3aed;
-            background: rgba(124, 58, 237, 0.1);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
-        }
-        .payment-card i {
-            font-size: 28px;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .payment-card .pay-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .payment-card .pay-desc {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
+        @media (max-width: 360px) { .balance-actions button { font-size: 10px; padding: 4px 10px; } }
+        .server-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(20, 24, 43, 0.7); border-radius: 14px; margin-bottom: 8px; border: 1px solid rgba(30, 36, 64, 0.4); }
+        .server-item .server-info { display: flex; flex-direction: column; }
+        .server-item .server-info .server-name { font-weight: 600; font-size: 0.95rem; }
+        .server-item .server-info .server-details { font-size: 0.8rem; color: #94a3b8; }
+        .server-item .server-status { font-size: 0.7rem; font-weight: 600; padding: 2px 10px; border-radius: 40px; text-transform: uppercase; }
+        .server-item .server-status.active { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+        .server-item .server-status.inactive { background: rgba(248, 113, 113, 0.15); color: #f87171; }
+        .server-item .server-actions button { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); color: #ccc; padding: 4px 10px; border-radius: 30px; font-size: 0.7rem; cursor: pointer; transition: 0.2s; margin-left: 4px; }
+        .server-item .server-actions button:hover { background: rgba(124, 58, 237, 0.2); border-color: #7c3aed; color: #fff; }
+        .server-item .server-actions .btn-danger:hover { background: rgba(248, 113, 113, 0.2); border-color: #f87171; color: #f87171; }
+        .empty-state { text-align: center; color: #94a3b8; padding: 16px; }
+        .server-section h3 { margin: 16px 0 10px; color: #cbd5e1; font-weight: 500; }
+        .payment-method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+        .payment-card { background: rgba(0, 0, 0, 0.3); border: 2px solid rgba(30, 36, 64, 0.5); border-radius: 16px; padding: 20px 12px; text-align: center; cursor: pointer; transition: 0.25s; }
+        .payment-card:hover { border-color: #7c3aed; transform: translateY(-2px); }
+        .payment-card.selected { border-color: #7c3aed; background: rgba(124, 58, 237, 0.1); box-shadow: 0 0 30px rgba(124, 58, 237, 0.15); }
+        .payment-card i { font-size: 28px; display: block; margin-bottom: 8px; }
+        .payment-card .pay-name { font-weight: 600; font-size: 0.95rem; }
+        .payment-card .pay-desc { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; }
     </style>
 </head>
 <body>
-
     <div class="app" id="app">
-
-        <!-- ─── HEADER ─── -->
+        <!-- HEADER -->
         <header class="header">
             <div class="brand">
                 <div class="brand-icon">⚡</div>
@@ -1387,7 +272,7 @@
             </div>
         </header>
 
-        <!-- ─── LANDING ─── -->
+        <!-- LANDING -->
         <div id="page-landing" class="page active">
             <div class="hero">
                 <h1>𝐓𝐇𝐄 𝐅𝐔𝐓𝐔𝐑𝐄 𝐒𝐓𝐀𝐑𝐓𝐒 𝐀𝐓<br />𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃 𝐓𝐄𝐂𝐇 𝐈𝐍𝐂</h1>
@@ -1395,17 +280,13 @@
                     <i>𝑭𝒓𝒐𝒎 𝒄𝒍𝒐𝒖𝒅 𝒉𝒐𝒔𝒕𝒊𝒏𝒈 𝒕𝒐 𝒊𝒏𝒕𝒆𝒍𝒍𝒊𝒈𝒆𝒏𝒕 𝒂𝒖𝒕𝒐𝒎𝒂𝒕𝒊𝒐𝒏, 𝒘𝒆 𝒅𝒆𝒍𝒊𝒗𝒆𝒓 𝒕𝒆𝒄𝒉𝒏𝒐𝒍𝒐𝒈𝒚 𝒕𝒉𝒂𝒕 𝒅𝒓𝒊𝒗𝒆𝒔 𝒔𝒖𝒄𝒄𝒆𝒔𝒔. <strong>𝑾𝒉𝒆𝒕𝒉𝒆𝒓 𝒚𝒐𝒖'𝒓𝒆 𝒂 𝒄𝒓𝒆𝒂𝒕𝒐𝒓, 𝒔𝒕𝒂𝒓𝒕𝒖𝒑, 𝒐𝒓 𝒆𝒔𝒕𝒂𝒃𝒍𝒊𝒔𝒉𝒆𝒅 𝒃𝒖𝒔𝒊𝒏𝒆𝒔𝒔,</strong> 𝒐𝒖𝒓 𝒑𝒐𝒘𝒆𝒓𝒇𝒖𝒍 𝑷𝒕𝒆𝒓𝒐𝒅𝒂𝒄𝒕𝒚𝒍 𝒉𝒐𝒔𝒕𝒊𝒏𝒈, 𝒂𝒅𝒗𝒂𝒏𝒄𝒆𝒅 𝑾𝒉𝒂𝒕𝒔𝑨𝒑𝒑 𝒂𝒖𝒕𝒐𝒎𝒂𝒕𝒊𝒐𝒏, 𝒂𝒏𝒅 𝒊𝒏𝒏𝒐𝒗𝒂𝒕𝒊𝒗𝒆 𝒅𝒊𝒈𝒊𝒕𝒂𝒍 𝒔𝒐𝒍𝒖𝒕𝒊𝒐𝒏𝒔 𝒂𝒓𝒆 𝒅𝒆𝒔𝒊𝒈𝒏𝒆𝒅 𝒕𝒐 𝒉𝒆𝒍𝒑 𝒚𝒐𝒖 𝒔𝒄𝒂𝒍𝒆 𝒘𝒊𝒕𝒉 𝒄𝒐𝒏𝒇𝒊𝒅𝒆𝒏𝒄𝒆.</i>
                 </div>
                 <div class="circle-badge">
-                    <span class="badge-text">
-                        𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃<br />
-                        𝐓𝐄𝐂𝐇,<br />
-                        <span class="small">𝐈𝐍𝐂𝐎𝐑𝐏𝐎𝐑𝐀𝐓𝐄𝐃</span>
-                    </span>
+                    <span class="badge-text">𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃<br />𝐓𝐄𝐂𝐇,<br /><span class="small">𝐈𝐍𝐂𝐎𝐑𝐏𝐎𝐑𝐀𝐓𝐄𝐃</span></span>
                 </div>
                 <button class="btn-primary" onclick="showPage('register')">🚀 Get Started</button>
             </div>
         </div>
 
-        <!-- ─── REGISTER ─── -->
+        <!-- REGISTER -->
         <div id="page-register" class="page">
             <div class="form-container">
                 <h2>✨ Join Blacklord Tech</h2>
@@ -1433,7 +314,7 @@
             </div>
         </div>
 
-        <!-- ─── LOGIN ─── -->
+        <!-- LOGIN -->
         <div id="page-login" class="page">
             <div class="form-container">
                 <h2>👋 Welcome Back!</h2>
@@ -1459,14 +340,13 @@
             </div>
         </div>
 
-        <!-- ─── DASHBOARD ─── -->
+        <!-- DASHBOARD -->
         <div id="page-dashboard" class="page">
             <div class="greeting">
                 <h2><i class="fas fa-hand-peace"></i> Welcome back, <span id="dashUserName">User</span></h2>
                 <p>Your dashboard is ready · <span id="dateDisplay"></span></p>
             </div>
 
-            <!-- ─── VOUCHER ROW ─── -->
             <div class="voucher-row">
                 <input type="text" id="voucherInput" placeholder="🎫 Enter voucher code..." />
                 <button class="voucher-btn" id="voucherRedeemBtn" onclick="redeemVoucher()">
@@ -1475,7 +355,6 @@
                 <span id="voucherMsg" class="voucher-msg"></span>
             </div>
 
-            <!-- ─── ADMIN VOUCHER GENERATION (only visible to admin) ─── -->
             <div id="adminVoucherSection" style="display:none;" class="admin-voucher-section">
                 <h4><i class="fas fa-crown" style="color:#fbbf24;"></i> Admin — Voucher Generator</h4>
                 <div class="av-row">
@@ -1584,38 +463,32 @@
             </div>
         </div>
 
-        <!-- ─── SERVERS ─── -->
+        <!-- SERVERS -->
         <div id="page-servers" class="page">
             <div style="display:flex;justify-content:space-between;align-items:center;margin:20px 0 16px;">
                 <h2>📦 My Servers</h2>
                 <button class="btn-deploy-bot" onclick="openBuyPanel()">+ Add Panel</button>
             </div>
-            <div id="serversList">
-                <div style="text-align:center;color:#94a3b8;padding:20px;">Loading...</div>
-            </div>
+            <div id="serversList"><div style="text-align:center;color:#94a3b8;padding:20px;">Loading...</div></div>
             <div class="footer-note">
                 <button class="btn-cancel-modal" onclick="showPage('dashboard')" style="background:rgba(30,36,64,0.7);color:#94a3b8;border:none;padding:10px 24px;border-radius:40px;cursor:pointer;font-weight:500;">← Back to Dashboard</button>
             </div>
         </div>
 
-        <!-- ─── BOTS ─── -->
+        <!-- BOTS -->
         <div id="page-bots" class="page">
             <div class="bots-header">
                 <h2>🤖 Telegram Bots</h2>
                 <button class="btn-deploy-bot" onclick="deployNewBot()">+ Deploy New</button>
             </div>
-            <div class="bots-list" id="botsList">
-                <div style="text-align:center;color:#94a3b8;padding:20px;">Loading bots...</div>
-            </div>
-            <div style="text-align:center;color:#94a3b8;font-size:0.9rem;">
-                <i class="fas fa-info-circle"></i> Manage your Telegram bots here.
-            </div>
+            <div class="bots-list" id="botsList"><div style="text-align:center;color:#94a3b8;padding:20px;">Loading bots...</div></div>
+            <div style="text-align:center;color:#94a3b8;font-size:0.9rem;"><i class="fas fa-info-circle"></i> Manage your Telegram bots here.</div>
             <div class="footer-note" style="margin-top:20px;">
                 <button class="btn-cancel-modal" onclick="showPage('dashboard')" style="background:rgba(30,36,64,0.7);color:#94a3b8;border:none;padding:10px 24px;border-radius:40px;cursor:pointer;font-weight:500;">← Back to Dashboard</button>
             </div>
         </div>
 
-        <!-- ─── TOP-UP MODAL (Payment Method Selection) ─── -->
+        <!-- TOP-UP MODAL -->
         <div class="modal" id="topupModal">
             <div class="modal-content">
                 <h2>💳 Top Up</h2>
@@ -1632,9 +505,7 @@
                         <div class="pay-desc">STK Push</div>
                     </div>
                 </div>
-                <div id="topupMethodDisplay" style="text-align:center;color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">
-                    Select a method above
-                </div>
+                <div id="topupMethodDisplay" style="text-align:center;color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">Select a method above</div>
                 <div id="topupPhoneInput" style="display:none;margin-bottom:12px;">
                     <label style="display:block;font-size:0.85rem;color:#cbd5e1;margin-bottom:4px;">📱 M-Pesa Phone Number</label>
                     <input type="tel" id="topupPhone" placeholder="0712345678 or +254712345678" class="modal-input" />
@@ -1651,7 +522,7 @@
             </div>
         </div>
 
-        <!-- ─── BUY PANEL MODAL ─── -->
+        <!-- BUY PANEL MODAL -->
         <div class="modal" id="buyPanelModal">
             <div class="modal-content">
                 <h2>🛒 Buy Panel</h2>
@@ -1678,9 +549,7 @@
                         <div class="plan-price">≈ 8,000 KSH</div>
                     </div>
                 </div>
-                <div id="selectedPlanDisplay">
-                    Selected: <span id="selectedPlanName">None</span> — <span id="selectedPlanPrice">0</span> SD
-                </div>
+                <div id="selectedPlanDisplay">Selected: <span id="selectedPlanName">None</span> — <span id="selectedPlanPrice">0</span> SD</div>
                 <input type="text" class="modal-input" id="panelUsername" placeholder="Enter username" />
                 <input type="text" class="modal-input" id="panelPassword" placeholder="Password (leave blank for auto)" />
                 <div id="purchaseResult" style="margin-bottom:16px;"></div>
@@ -1691,7 +560,7 @@
             </div>
         </div>
 
-        <!-- ─── BUY ADMIN MODAL ─── -->
+        <!-- BUY ADMIN MODAL -->
         <div class="modal" id="adminBuyModal">
             <div class="modal-content">
                 <h2>👑 Buy Admin Panel</h2>
@@ -1713,9 +582,7 @@
                         <div class="plan-price">≈ 8,000 KSH</div>
                     </div>
                 </div>
-                <div id="selectedAdminDisplay">
-                    Selected: <span id="selectedAdminName">None</span> — <span id="selectedAdminPrice">0</span> SD
-                </div>
+                <div id="selectedAdminDisplay">Selected: <span id="selectedAdminName">None</span> — <span id="selectedAdminPrice">0</span> SD</div>
                 <input type="text" class="modal-input" id="adminUsername" placeholder="Enter username" />
                 <input type="text" class="modal-input" id="adminPassword" placeholder="Password (leave blank for auto)" />
                 <div id="adminPurchaseResult" style="margin-bottom:16px;"></div>
@@ -1726,7 +593,7 @@
             </div>
         </div>
 
-        <!-- ─── PROFILE MODAL ─── -->
+        <!-- PROFILE MODAL -->
         <div class="modal" id="profileModal">
             <div class="modal-content">
                 <h2>👤 My Profile</h2>
@@ -1743,13 +610,13 @@
             </div>
         </div>
 
-        <!-- ─── TOAST ─── -->
+        <!-- TOAST -->
         <div class="toast" id="toast">
             <i class="fas fa-check-circle"></i>
             <span id="toastMsg">Done!</span>
         </div>
 
-        <!-- ─── BOTTOM NAV ─── -->
+        <!-- BOTTOM NAV -->
         <nav class="bottom-nav">
             <button class="nav-item active" onclick="navTo('dashboard')">
                 <i class="fas fa-th-large"></i>
@@ -1769,18 +636,13 @@
                 <span>Logout</span>
             </button>
         </nav>
-
     </div>
 
     <script>
         // ─── API BASE ──────────────────────────────────────────────────
         const API_BASE = window.location.origin;
-
         let currentUser = null;
         let token = localStorage.getItem('blacklord_token') || null;
-
-        // ─── TOP-UP STATE ──────────────────────────────────────────────
-        let selectedPaymentMethod = null;
 
         // ─── NAVIGATION ────────────────────────────────────────────────
         function showPage(pageId) {
@@ -1841,14 +703,13 @@
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
-            const remember = document.getElementById('rememberMe').checked;
             const errorEl = document.getElementById('loginError');
             errorEl.textContent = '';
             try {
                 const res = await fetch(`${API_BASE}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password, remember })
+                    body: JSON.stringify({ email, password })
                 });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Login failed');
@@ -1870,32 +731,8 @@
             showToast('Logged out');
         }
 
-        // ─── GOOGLE OAUTH ──────────────────────────────────────────────
         function googleLogin() {
-            window.location.href = `${API_BASE}/auth/google`;
-        }
-
-        async function handleGoogleCallback() {
-            const params = new URLSearchParams(window.location.search);
-            const tokenParam = params.get('token');
-            if (tokenParam) {
-                token = tokenParam;
-                localStorage.setItem('blacklord_token', token);
-                try {
-                    const res = await fetch(`${API_BASE}/api/me`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    const data = await res.json();
-                    if (data.user) {
-                        currentUser = data.user;
-                        showPage('dashboard');
-                        showToast('✅ Welcome, ' + currentUser.firstName + '!');
-                    } else {
-                        logoutUser();
-                    }
-                } catch (e) { logoutUser(); }
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
+            showToast('🔵 Google login coming soon!', 'fa-info-circle', '#60a5fa');
         }
 
         // ─── DASHBOARD ──────────────────────────────────────────────────
@@ -1916,8 +753,7 @@
                 const bal = currentUser.sdBalance || 0;
                 document.getElementById('dashBalance').innerHTML = bal;
                 document.getElementById('dashKsh').textContent = (bal * 1.6).toFixed(2) + ' KSH';
-                const change = (bal > 0) ? '+0.5' : '0.0';
-                document.getElementById('dashChange').textContent = (bal > 0 ? '+' : '') + change + '%';
+                document.getElementById('dashChange').textContent = bal > 0 ? '+0.5%' : '0.0%';
                 document.getElementById('dashChange').className = 'balance-change' + (bal > 0 ? ' positive' : '');
 
                 const total = currentUser.totalServers || 0;
@@ -1925,50 +761,25 @@
                 document.getElementById('statBots').textContent = total;
                 document.getElementById('statBotsSub').textContent = '+' + Math.floor(Math.random() * 5) + ' this week';
                 document.getElementById('statActive').textContent = active;
-                document.getElementById('statActiveSub').textContent = (total > 0 ? Math.round((active / total) * 100) : 0) +
-                    '% uptime';
+                document.getElementById('statActiveSub').textContent = (total > 0 ? Math.round((active / total) * 100) : 0) + '% uptime';
                 document.getElementById('navBotsBadge').textContent = total;
 
-                const adminEmail = localStorage.getItem('blacklord_admin_email') || 'admin@blacklordtech.com';
-                const isAdmin = currentUser.email === adminEmail;
-                const adminSection = document.getElementById('adminVoucherSection');
-                if (isAdmin) {
-                    adminSection.style.display = 'block';
-                    loadAdminVouchers();
-                } else {
-                    adminSection.style.display = 'none';
-                }
+                // Admin check
+                const isAdmin = currentUser.email === 'admin@blacklordtech.com';
+                document.getElementById('adminVoucherSection').style.display = isAdmin ? 'block' : 'none';
+                if (isAdmin) loadAdminVouchers();
 
+                // Activity
                 const activityList = document.getElementById('activityList');
                 let activities = [];
                 if (currentUser.panels) {
                     currentUser.panels.forEach(p => {
-                        activities.push({
-                            icon: 'fa-server',
-                            text: `Panel ${p.status === 'active' ? '🟢' : '🔴'} ${p.username}`,
-                            amount: -p.sdPrice || -1250,
-                            date: new Date(p.createdAt).toLocaleDateString()
-                        });
+                        activities.push({ icon: 'fa-server', text: `Panel ${p.status === 'active' ? '🟢' : '🔴'} ${p.username}`, amount: -p.sdPrice || -1250, date: new Date(p.created_at).toLocaleDateString() });
                     });
                 }
                 if (currentUser.bots) {
                     currentUser.bots.forEach(b => {
-                        activities.push({
-                            icon: 'fa-robot',
-                            text: `Bot ${b.status === 'active' ? '🟢' : '🔴'} ${b.name}`,
-                            amount: -250,
-                            date: new Date(b.createdAt).toLocaleDateString()
-                        });
-                    });
-                }
-                if (currentUser.voucherRedemptions) {
-                    currentUser.voucherRedemptions.forEach(v => {
-                        activities.push({
-                            icon: 'fa-gift',
-                            text: `🎫 Redeemed voucher (${v.amount} SD)`,
-                            amount: v.amount,
-                            date: new Date(v.redeemedAt).toLocaleDateString()
-                        });
+                        activities.push({ icon: 'fa-robot', text: `Bot ${b.status === 'active' ? '🟢' : '🔴'} ${b.name}`, amount: -250, date: new Date(b.created_at).toLocaleDateString() });
                     });
                 }
                 if (activities.length === 0) {
@@ -1977,14 +788,10 @@
                 const latest = activities.slice(-8).reverse();
                 activityList.innerHTML = latest.map(a =>
                     `<div class="activity-item">
-                        <div class="activity-left">
-                            <div class="ai-icon"><i class="fas ${a.icon}"></i></div>
-                            <div class="ai-text">${a.text}<small>${a.date}</small></div>
-                        </div>
+                        <div class="activity-left"><div class="ai-icon"><i class="fas ${a.icon}"></i></div><div class="ai-text">${a.text}<small>${a.date}</small></div></div>
                         <div class="activity-right ${a.amount < 0 ? 'negative' : ''}">${a.amount >= 0 ? '+' : ''}${a.amount} SD</div>
                     </div>`
                 ).join('');
-
             } catch (e) {
                 console.error(e);
                 logoutUser();
@@ -2005,18 +812,13 @@
                 const bots = currentUser.bots || [];
                 const container = document.getElementById('serversList');
                 let html = '';
-
                 html += `<div class="server-section"><h3>🖥️ Panels (${panels.length})</h3>`;
                 if (panels.length === 0) {
-                    html +=
-                        `<div class="empty-state">No panels deployed. <button onclick="openBuyPanel()" style="background:#7c3aed;border:none;color:#fff;padding:6px 16px;border-radius:30px;cursor:pointer;font-weight:500;margin-left:8px;">+ Add Panel</button></div>`;
+                    html += `<div class="empty-state">No panels deployed. <button onclick="openBuyPanel()" style="background:#7c3aed;border:none;color:#fff;padding:6px 16px;border-radius:30px;cursor:pointer;font-weight:500;margin-left:8px;">+ Add Panel</button></div>`;
                 } else {
                     panels.forEach(p => {
                         html += `<div class="server-item">
-                            <div class="server-info">
-                                <span class="server-name">${p.username}</span>
-                                <span class="server-details">${p.plan || 'Custom'} · ${p.domain || 'N/A'}</span>
-                            </div>
+                            <div class="server-info"><span class="server-name">${p.username}</span><span class="server-details">${p.plan || 'Custom'} · ${p.domain || 'N/A'}</span></div>
                             <div style="display:flex;align-items:center;gap:8px;">
                                 <span class="server-status ${p.status === 'active' ? 'active' : 'inactive'}">${p.status || 'offline'}</span>
                                 <div class="server-actions">
@@ -2028,18 +830,13 @@
                     });
                 }
                 html += `</div>`;
-
                 html += `<div class="server-section"><h3>🤖 Bots (${bots.length})</h3>`;
                 if (bots.length === 0) {
-                    html +=
-                        `<div class="empty-state">No bots deployed. <button onclick="deployNewBot()" style="background:#7c3aed;border:none;color:#fff;padding:6px 16px;border-radius:30px;cursor:pointer;font-weight:500;margin-left:8px;">+ Deploy Bot</button></div>`;
+                    html += `<div class="empty-state">No bots deployed. <button onclick="deployNewBot()" style="background:#7c3aed;border:none;color:#fff;padding:6px 16px;border-radius:30px;cursor:pointer;font-weight:500;margin-left:8px;">+ Deploy Bot</button></div>`;
                 } else {
                     bots.forEach(b => {
                         html += `<div class="server-item">
-                            <div class="server-info">
-                                <span class="server-name">${b.name}</span>
-                                <span class="server-details">${b.type || 'Custom'} · ${b.token || 'N/A'}</span>
-                            </div>
+                            <div class="server-info"><span class="server-name">${b.name}</span><span class="server-details">${b.type || 'Custom'} · ${b.token || 'N/A'}</span></div>
                             <div style="display:flex;align-items:center;gap:8px;">
                                 <span class="server-status ${b.status === 'active' ? 'active' : 'inactive'}">${b.status || 'offline'}</span>
                                 <div class="server-actions">
@@ -2052,9 +849,7 @@
                 }
                 html += `</div>`;
                 container.innerHTML = html;
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         // ─── PANEL ACTIONS ─────────────────────────────────────────────
@@ -2071,9 +866,7 @@
                 showToast(`Panel ${data.status === 'active' ? 'activated' : 'paused'}`, 'fa-check-circle', '#34d399');
                 loadServersPage();
                 loadDashboard();
-            } catch (e) {
-                showToast(e.message, 'fa-exclamation-circle', '#f87171');
-            }
+            } catch (e) { showToast(e.message, 'fa-exclamation-circle', '#f87171'); }
         }
 
         async function deletePanel(username) {
@@ -2089,9 +882,7 @@
                 showToast('Panel deleted', 'fa-check-circle', '#f87171');
                 loadServersPage();
                 loadDashboard();
-            } catch (e) {
-                showToast(e.message, 'fa-exclamation-circle', '#f87171');
-            }
+            } catch (e) { showToast(e.message, 'fa-exclamation-circle', '#f87171'); }
         }
 
         // ─── BOT ACTIONS ────────────────────────────────────────────────
@@ -2107,8 +898,7 @@
                 const bots = currentUser.bots || [];
                 const container = document.getElementById('botsList');
                 if (bots.length === 0) {
-                    container.innerHTML =
-                        `<div style="text-align:center;color:#94a3b8;padding:30px;">
+                    container.innerHTML = `<div style="text-align:center;color:#94a3b8;padding:30px;">
                         <i class="fas fa-robot" style="font-size:3rem;display:block;margin-bottom:12px;color:#7c3aed;"></i>
                         No bots deployed yet.<br>
                         <button onclick="deployNewBot()" style="background:linear-gradient(135deg,#7c3aed,#3b82f6);border:none;color:#fff;padding:8px 24px;border-radius:40px;margin-top:12px;cursor:pointer;font-weight:600;">Deploy Your First Bot</button>
@@ -2117,10 +907,7 @@
                 }
                 container.innerHTML = bots.map(b => `
                     <div class="bot-item">
-                        <div class="bot-info">
-                            <span class="bot-name">${b.name}</span>
-                            <span class="bot-details">${b.type || 'Custom'} · ${b.token || 'N/A'}</span>
-                        </div>
+                        <div class="bot-info"><span class="bot-name">${b.name}</span><span class="bot-details">${b.type || 'Custom'} · ${b.token || 'N/A'}</span></div>
                         <div style="display:flex;align-items:center;gap:8px;">
                             <span class="bot-status ${b.status === 'active' ? 'active' : 'inactive'}">${b.status || 'offline'}</span>
                             <div class="bot-actions">
@@ -2131,9 +918,7 @@
                         </div>
                     </div>
                 `).join('');
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         async function deployNewBot() {
@@ -2152,14 +937,10 @@
                 loadBotsPage();
                 loadDashboard();
                 if (document.getElementById('page-servers').classList.contains('active')) loadServersPage();
-            } catch (e) {
-                showToast(e.message, 'fa-exclamation-circle', '#f87171');
-            }
+            } catch (e) { showToast(e.message, 'fa-exclamation-circle', '#f87171'); }
         }
 
-        function viewBot(token) {
-            window.open('https://t.me/' + token.split(':')[0] + '_bot', '_blank');
-        }
+        function viewBot(token) { window.open('https://t.me/' + token.split(':')[0] + '_bot', '_blank'); }
 
         async function toggleBot(token) {
             if (!token) return;
@@ -2175,9 +956,7 @@
                 loadBotsPage();
                 loadDashboard();
                 if (document.getElementById('page-servers').classList.contains('active')) loadServersPage();
-            } catch (e) {
-                showToast(e.message, 'fa-exclamation-circle', '#f87171');
-            }
+            } catch (e) { showToast(e.message, 'fa-exclamation-circle', '#f87171'); }
         }
 
         async function deleteBot(token) {
@@ -2194,12 +973,14 @@
                 loadBotsPage();
                 loadDashboard();
                 if (document.getElementById('page-servers').classList.contains('active')) loadServersPage();
-            } catch (e) {
-                showToast(e.message, 'fa-exclamation-circle', '#f87171');
-            }
+            } catch (e) { showToast(e.message, 'fa-exclamation-circle', '#f87171'); }
         }
 
-        // ─── TOP-UP WITH PAYMENT METHOD SELECTION ──────────────────────
+        // ─── TOP-UP ──────────────────────────────────────────────────────
+        let selectedPaymentMethod = null;
+
+        function topUpSD() { openTopUpModal(); }
+
         function openTopUpModal() {
             if (!token) { showToast('Please log in first', 'fa-exclamation-circle', '#f87171'); return; }
             selectedPaymentMethod = null;
@@ -2232,13 +1013,11 @@
                 document.getElementById('topupResult').innerHTML = '<div class="error-msg">❌ Please select a payment method.</div>';
                 return;
             }
-
             const amount = parseFloat(document.getElementById('topupAmount').value);
             if (isNaN(amount) || amount < 8) {
                 document.getElementById('topupResult').innerHTML = '<div class="error-msg">❌ Minimum top-up is 8 KSH.</div>';
                 return;
             }
-
             let phone = null;
             if (selectedPaymentMethod === 'mpesa') {
                 phone = document.getElementById('topupPhone').value.trim();
@@ -2247,28 +1026,19 @@
                     return;
                 }
             }
-
             const btn = document.getElementById('topupConfirmBtn');
             btn.disabled = true;
             btn.textContent = '⏳ Processing...';
             document.getElementById('topupResult').innerHTML = '<div class="success-msg" style="color:#fbbf24;">⏳ Initiating payment...</div>';
-
             try {
-                const payload = {
-                    amountKsh: amount,
-                    paymentMethod: selectedPaymentMethod
-                };
-                if (selectedPaymentMethod === 'mpesa') {
-                    payload.phone = phone;
-                }
-
+                const payload = { amountKsh: amount, paymentMethod: selectedPaymentMethod };
+                if (selectedPaymentMethod === 'mpesa') payload.phone = phone;
                 const res = await fetch(`${API_BASE}/api/topup`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify(payload)
                 });
                 const data = await res.json();
-
                 if (!res.ok) {
                     if (res.status === 400) {
                         document.getElementById('topupResult').innerHTML = `<div class="error-msg">❌ ${data.error}</div>`;
@@ -2279,21 +1049,17 @@
                     btn.textContent = 'Retry';
                     return;
                 }
-
                 if (selectedPaymentMethod === 'paystack') {
                     if (data.authorization_url) {
-                        // Redirect to Paystack
                         window.location.href = data.authorization_url;
                     } else if (data.mock) {
-                        // Mock mode
-                        showToast('✅ Mock Paystack: +' + data.sdAmount + ' SD credited!', 'fa-check-circle', '#34d399');
+                        showToast('✅ Mock Paystack: SD credited!', 'fa-check-circle', '#34d399');
                         closeModal('topupModal');
                         loadDashboard();
                     } else {
                         throw new Error('No payment URL returned');
                     }
                 } else if (selectedPaymentMethod === 'mpesa') {
-                    // M-Pesa response
                     document.getElementById('topupResult').innerHTML = `
                         <div class="success-msg" style="color:#34d399;">
                             📱 ${data.message || 'STK Push sent! Check your phone.'}
@@ -2302,16 +1068,13 @@
                     `;
                     btn.disabled = true;
                     btn.textContent = '✅ Sent';
-
-                    // If mock mode, poll for status or reload after delay
                     if (data.mock) {
                         setTimeout(() => {
                             closeModal('topupModal');
-                            showToast('✅ +' + (data.sdAmount || '') + ' SD credited!', 'fa-check-circle', '#34d399');
+                            showToast('✅ SD credited!', 'fa-check-circle', '#34d399');
                             loadDashboard();
                         }, 6000);
                     } else if (data.checkoutRequestId) {
-                        // Poll for real status
                         let attempts = 0;
                         const interval = setInterval(async () => {
                             attempts++;
@@ -2335,17 +1098,11 @@
                         }, 3000);
                     }
                 }
-
             } catch (e) {
                 document.getElementById('topupResult').innerHTML = `<div class="error-msg">❌ ${e.message}</div>`;
                 btn.disabled = false;
                 btn.textContent = 'Retry';
             }
-        }
-
-        // ─── TOP-UP (legacy function that opens the modal) ─────────────
-        function topUpSD() {
-            openTopUpModal();
         }
 
         // ─── BUY PANEL ──────────────────────────────────────────────────
@@ -2383,6 +1140,13 @@
             document.getElementById('buyBtn').disabled = false;
         }
 
+        function generatePassword(username) {
+            const first = username.charAt(0).toUpperCase();
+            const rest = username.slice(1).toLowerCase();
+            const digits = String(Math.floor(Math.random() * 90 + 10));
+            return first + rest + digits + '!';
+        }
+
         async function buyPanel() {
             if (!token) { showToast('Please log in first', 'fa-exclamation-circle', '#f87171'); return; }
             if (!selectedPlan) {
@@ -2395,34 +1159,24 @@
                 return;
             }
             if (!/^[a-zA-Z0-9_-]{3,}$/.test(username)) {
-                document.getElementById('purchaseResult').innerHTML =
-                    '<div class="error-msg">❌ Username must be 3+ characters (letters, numbers, underscore).</div>';
+                document.getElementById('purchaseResult').innerHTML = '<div class="error-msg">❌ Username must be 3+ characters (letters, numbers, underscore).</div>';
                 return;
             }
-
             let password = document.getElementById('panelPassword').value.trim();
             if (!password) password = generatePassword(username);
             else if (password.length < 4) {
-                document.getElementById('purchaseResult').innerHTML =
-                    '<div class="error-msg">❌ Password must be at least 4 characters.</div>';
+                document.getElementById('purchaseResult').innerHTML = '<div class="error-msg">❌ Password must be at least 4 characters.</div>';
                 return;
             }
-
             const buyBtn = document.getElementById('buyBtn');
             buyBtn.disabled = true;
             buyBtn.textContent = '⏳ Processing...';
             document.getElementById('purchaseResult').innerHTML = '<div class="success-msg" style="color:#fbbf24;">⏳ Creating your panel...</div>';
-
             try {
                 const res = await fetch(`${API_BASE}/api/buy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({
-                        productType: 'panel',
-                        productId: selectedPlan,
-                        username,
-                        password
-                    })
+                    body: JSON.stringify({ productType: 'panel', productId: selectedPlan, username, password })
                 });
                 const data = await res.json();
                 if (!res.ok) {
@@ -2459,13 +1213,6 @@
                 buyBtn.disabled = false;
                 buyBtn.textContent = 'Retry';
             }
-        }
-
-        function generatePassword(username) {
-            const first = username.charAt(0).toUpperCase();
-            const rest = username.slice(1).toLowerCase();
-            const digits = String(Math.floor(Math.random() * 90 + 10));
-            return first + rest + digits + '!';
         }
 
         // ─── BUY ADMIN ──────────────────────────────────────────────────
@@ -2507,39 +1254,28 @@
             }
             const username = document.getElementById('adminUsername').value.trim();
             if (!username) {
-                document.getElementById('adminPurchaseResult').innerHTML =
-                '<div class="error-msg">❌ Please enter a username.</div>';
+                document.getElementById('adminPurchaseResult').innerHTML = '<div class="error-msg">❌ Please enter a username.</div>';
                 return;
             }
             if (!/^[a-zA-Z0-9_-]{3,}$/.test(username)) {
-                document.getElementById('adminPurchaseResult').innerHTML =
-                    '<div class="error-msg">❌ Username must be 3+ characters.</div>';
+                document.getElementById('adminPurchaseResult').innerHTML = '<div class="error-msg">❌ Username must be 3+ characters.</div>';
                 return;
             }
             let password = document.getElementById('adminPassword').value.trim();
             if (!password) password = generatePassword(username);
             else if (password.length < 4) {
-                document.getElementById('adminPurchaseResult').innerHTML =
-                    '<div class="error-msg">❌ Password must be at least 4 characters.</div>';
+                document.getElementById('adminPurchaseResult').innerHTML = '<div class="error-msg">❌ Password must be at least 4 characters.</div>';
                 return;
             }
-
             const buyBtn = document.getElementById('adminBuyBtn');
             buyBtn.disabled = true;
             buyBtn.textContent = '⏳ Processing...';
-            document.getElementById('adminPurchaseResult').innerHTML =
-                '<div class="success-msg" style="color:#fbbf24;">⏳ Creating admin panel...</div>';
-
+            document.getElementById('adminPurchaseResult').innerHTML = '<div class="success-msg" style="color:#fbbf24;">⏳ Creating admin panel...</div>';
             try {
                 const res = await fetch(`${API_BASE}/api/buy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({
-                        productType: 'admin',
-                        productId: selectedAdminPlan,
-                        username,
-                        password
-                    })
+                    body: JSON.stringify({ productType: 'admin', productId: selectedAdminPlan, username, password })
                 });
                 const data = await res.json();
                 if (!res.ok) {
@@ -2576,7 +1312,7 @@
             }
         }
 
-        // ─── VOUCHER SYSTEM ────────────────────────────────────────────
+        // ─── VOUCHER ────────────────────────────────────────────────────
         async function redeemVoucher() {
             const input = document.getElementById('voucherInput');
             const msg = document.getElementById('voucherMsg');
@@ -2595,7 +1331,6 @@
             btn.disabled = true;
             msg.textContent = '⏳ Checking...';
             msg.className = 'voucher-msg';
-
             try {
                 const res = await fetch(`${API_BASE}/api/redeem-voucher`, {
                     method: 'POST',
@@ -2609,9 +1344,7 @@
                 input.value = '';
                 showToast(`🎉 +${data.sdAmount} SD from voucher!`, 'fa-gift', '#fbbf24');
                 loadDashboard();
-                if (document.getElementById('adminVoucherSection').style.display !== 'none') {
-                    loadAdminVouchers();
-                }
+                if (document.getElementById('adminVoucherSection').style.display !== 'none') loadAdminVouchers();
             } catch (e) {
                 msg.textContent = '❌ ' + e.message;
                 msg.className = 'voucher-msg error';
@@ -2619,7 +1352,7 @@
             btn.disabled = false;
         }
 
-        // ─── ADMIN VOUCHER GENERATION ──────────────────────────────────
+        // ─── ADMIN VOUCHER ──────────────────────────────────────────────
         async function generateVoucher() {
             const input = document.getElementById('voucherSdAmount');
             const amount = parseInt(input.value);
@@ -2641,9 +1374,7 @@
                 if (!res.ok) throw new Error(data.error || 'Failed to generate');
                 showToast(`🎫 Voucher generated: ${data.code} (${data.sdAmount} SD)`, 'fa-check-circle', '#34d399');
                 loadAdminVouchers();
-            } catch (e) {
-                showToast('❌ ' + e.message, 'fa-exclamation-circle', '#f87171');
-            }
+            } catch (e) { showToast('❌ ' + e.message, 'fa-exclamation-circle', '#f87171'); }
         }
 
         async function loadAdminVouchers() {
@@ -2656,20 +1387,13 @@
                 if (!res.ok) throw new Error(data.error || 'Failed');
                 const container = document.getElementById('adminVoucherList');
                 if (!data.vouchers || data.vouchers.length === 0) {
-                    container.innerHTML =
-                    '<div style="color:#64748b;font-size:0.85rem;text-align:center;padding:8px;">No vouchers generated yet.</div>';
+                    container.innerHTML = '<div style="color:#64748b;font-size:0.85rem;text-align:center;padding:8px;">No vouchers generated yet.</div>';
                     return;
                 }
                 container.innerHTML = data.vouchers.map(v =>
-                    `<div class="v-item">
-                        <span class="v-code">${v.code}</span>
-                        <span>${v.sdAmount} SD</span>
-                        <span class="v-status ${v.usedBy ? 'used' : 'unused'}">${v.usedBy ? '✅ Used' : '🟢 Active'}</span>
-                    </div>`
+                    `<div class="v-item"><span class="v-code">${v.code}</span><span>${v.sdAmount} SD</span><span class="v-status ${v.usedBy ? 'used' : 'unused'}">${v.usedBy ? '✅ Used' : '🟢 Active'}</span></div>`
                 ).join('');
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         // ─── PROFILE ────────────────────────────────────────────────────
@@ -2708,62 +1432,28 @@
 
         // ─── HANDLE QUICK ACTIONS ──────────────────────────────────────
         function handleQuick(action) {
-            const labels = {
-                referral: '🔗 Share your referral link!',
-                servers: '📦 Opening your servers…',
-                support: '🎫 Support ticket system coming soon!',
-            };
+            const labels = { referral: '🔗 Share your referral link!', servers: '📦 Opening your servers…', support: '🎫 Support ticket system coming soon!' };
             showToast(labels[action] || '⏳ Loading…', 'fa-spinner fa-spin', '#60a5fa');
         }
 
-        // ─── ENTER KEY FOR VOUCHER ─────────────────────────────────────
-        document.getElementById('voucherInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') redeemVoucher();
-        });
-
-        // ─── ENTER KEY FOR TOP-UP MODAL ────────────────────────────────
-        document.getElementById('topupAmount').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') confirmTopUp();
-        });
-        document.getElementById('topupPhone').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') confirmTopUp();
-        });
-
         // ─── INIT ──────────────────────────────────────────────────────
         (function init() {
-            handleGoogleCallback();
-
-            if (!localStorage.getItem('blacklord_admin_email')) {
-                localStorage.setItem('blacklord_admin_email', 'admin@blacklordtech.com');
-            }
-
+            document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
             if (token) {
                 fetch(`${API_BASE}/api/me`, { headers: { 'Authorization': `Bearer ${token}` } })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.user) {
-                            currentUser = data.user;
-                            showPage('dashboard');
-                        } else {
-                            logoutUser();
-                        }
+                        if (data.user) { currentUser = data.user; showPage('dashboard'); }
+                        else logoutUser();
                     })
                     .catch(() => logoutUser());
             } else {
                 showPage('landing');
             }
-            document.getElementById('dateDisplay').textContent =
-                new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-        })();
-
-        // ─── GOOGLE OAUTH FALLBACK ─────────────────────────────────────
-        (function checkGoogleError() {
-            const params = new URLSearchParams(window.location.search);
-            const error = params.get('error');
-            if (error) {
-                showToast('❌ Google login failed: ' + error, 'fa-exclamation-circle', '#f87171');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
+            // ENTER key for voucher
+            document.getElementById('voucherInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') redeemVoucher(); });
+            document.getElementById('topupAmount').addEventListener('keydown', function(e) { if (e.key === 'Enter') confirmTopUp(); });
+            document.getElementById('topupPhone').addEventListener('keydown', function(e) { if (e.key === 'Enter') confirmTopUp(); });
         })();
     </script>
 </body>

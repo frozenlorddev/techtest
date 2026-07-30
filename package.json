@@ -2,17 +2,15 @@
   "name": "blacklord-tech-inc",
   "version": "1.0.0",
   "private": true,
-  "description": "Blacklord Tech Inc - Cloud hosting, Telegram bots, and digital solutions platform",
+  "description": "Blacklord Tech Inc - Cloud hosting, Telegram bots, and digital solutions platform (no database required)",
   "scripts": {
     "dev": "node index.js",
     "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "@neondatabase/serverless": "^0.10.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "cors": "^2.8.5",
-    "axios": "^1.7.9"
+    "cors": "^2.8.5"
   }
 }
