@@ -131,6 +131,91 @@
             cursor: pointer;
         }
 
+        /* ─── SIDE MENU ─── */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .side-menu-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: rgba(13, 16, 34, 0.98);
+            backdrop-filter: blur(12px);
+            border-left: 1px solid rgba(30, 36, 64, 0.5);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            padding: 20px 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .side-menu.open {
+            right: 0;
+        }
+        .side-menu .close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .side-menu .close-btn:hover {
+            color: #fff;
+        }
+        .side-menu .menu-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f4ff;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(30, 36, 64, 0.5);
+        }
+        .side-menu .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .side-menu .menu-item:hover {
+            background: rgba(124, 58, 237, 0.15);
+            color: #fff;
+        }
+        .side-menu .menu-item i {
+            width: 22px;
+            font-size: 18px;
+            color: #7c3aed;
+        }
+        .side-menu .menu-divider {
+            height: 1px;
+            background: rgba(30, 36, 64, 0.3);
+            margin: 8px 0;
+        }
+
         /* ─── PAGES ─── */
         .page {
             display: none;
@@ -1376,9 +1461,30 @@
             </div>
             <div class="header-actions">
                 <i class="fas fa-bell"></i>
+                <!-- Three-dots menu button -->
+                <i class="fas fa-ellipsis-v" id="menuToggle" style="font-size:22px; cursor:pointer;"></i>
                 <div class="avatar" id="avatarDisplay">K</div>
             </div>
         </header>
+
+        <!-- ─── SIDE MENU ─── -->
+        <div class="side-menu-overlay" id="sideMenuOverlay"></div>
+        <div class="side-menu" id="sideMenu">
+            <button class="close-btn" id="sideMenuClose">&times;</button>
+            <div class="menu-title">Menu</div>
+            <div class="menu-item" onclick="handleMenu('referral')"><i class="fas fa-link"></i> Referral</div>
+            <div class="menu-item" onclick="handleMenu('earn')"><i class="fas fa-coins"></i> Earn Money</div>
+            <div class="menu-item" onclick="handleMenu('transactions')"><i class="fas fa-exchange-alt"></i> Transactions</div>
+            <div class="menu-item" onclick="handleMenu('calculator')"><i class="fas fa-calculator"></i> Calculator</div>
+            <div class="menu-item" onclick="handleMenu('sitelinks')"><i class="fas fa-globe"></i> Site Links</div>
+            <div class="menu-item" onclick="handleMenu('androidapp')"><i class="fas fa-mobile-alt"></i> Get our android app</div>
+            <div class="menu-item" onclick="handleMenu('sellxd')"><i class="fas fa-hand-holding-usd"></i> Sell My SD</div>
+            <div class="menu-item" onclick="handleMenu('api')"><i class="fas fa-plug"></i> API</div>
+            <div class="menu-item" onclick="handleMenu('settings')"><i class="fas fa-cog"></i> Settings</div>
+            <div class="menu-item" onclick="handleMenu('tutorials')"><i class="fas fa-book"></i> Tutorials</div>
+            <div class="menu-item" onclick="handleMenu('main-site')"><i class="fas fa-external-link-alt"></i> Visit Main Site</div>
+            <div class="menu-item" onclick="handleMenu('follow')"><i class="fas fa-bullhorn"></i> Follow For Updates</div>
+        </div>
 
         <!-- ─── LANDING ─── -->
         <div id="page-landing" class="page active">
@@ -1489,12 +1595,11 @@
                 </div>
             </div>
 
+            <!-- ─── BALANCE CARD ─── -->
             <div class="balance-card">
                 <div class="balance-top">
                     <span class="balance-label">TOTAL BALANCE</span>
                     <div class="balance-actions">
-                        <button><i class="fas fa-mobile-alt"></i> App</button>
-                        <button><i class="fas fa-coins"></i> Sell SD</button>
                         <button onclick="topUpSD()"><i class="fas fa-arrow-up"></i> Top Up</button>
                     </div>
                 </div>
@@ -1768,6 +1873,53 @@
         const API_BASE = window.location.origin;
         let currentUser = null;
         let token = localStorage.getItem('blacklord_token') || null;
+
+        // ─── SIDE MENU TOGGLE ──────────────────────────────────────────
+        const menuToggle = document.getElementById('menuToggle');
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+        const sideMenuClose = document.getElementById('sideMenuClose');
+
+        function openSideMenu() {
+            sideMenu.classList.add('open');
+            sideMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSideMenu() {
+            sideMenu.classList.remove('open');
+            sideMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openSideMenu);
+        sideMenuClose.addEventListener('click', closeSideMenu);
+        sideMenuOverlay.addEventListener('click', closeSideMenu);
+
+        // ─── MENU ITEM HANDLER ──────────────────────────────────────────
+        function handleMenu(action) {
+            closeSideMenu();
+            const messages = {
+                referral: '🔗 Referral program coming soon!',
+                earn: '💰 Earn Money features are under development.',
+                transactions: '📊 Transactions page is being built.',
+                calculator: '🧮 Calculator will be available soon.',
+                sitelinks: '🔗 Site Links: visit our main website.',
+                androidapp: '📲 Get our android app – coming soon!',
+                sellxd: '💰 Sell My SD – marketplace is being prepared.',
+                api: '🔌 API documentation will be published soon.',
+                settings: '⚙️ Settings are being finalised.',
+                tutorials: '📖 Tutorials will be available soon.',
+                'main-site': '🌐 Visit Main Site – redirecting...',
+                follow: '📢 Follow For Updates – stay tuned!'
+            };
+            if (action === 'main-site') {
+                window.open('https://blacklord.tech', '_blank');
+                showToast('Opening main site...', 'fa-external-link-alt', '#60a5fa');
+                return;
+            }
+            showToast(messages[action] || '⏳ Feature coming soon!', 'fa-info-circle', '#60a5fa');
+        }
 
         // ─── NAVIGATION ────────────────────────────────────────────────
         function showPage(pageId) {
