@@ -16,7 +16,7 @@
         body {
             color: #eef2ff;
             min-height: 100vh;
-            padding: 16px 14px 100px;
+            padding: 16px 14px 40px;
             display: flex;
             justify-content: center;
             position: relative;
@@ -209,11 +209,6 @@
             width: 22px;
             font-size: 18px;
             color: #7c3aed;
-        }
-        .side-menu .menu-divider {
-            height: 1px;
-            background: rgba(30, 36, 64, 0.3);
-            margin: 8px 0;
         }
 
         /* ─── PAGES ─── */
@@ -932,65 +927,10 @@
             color: #f87171;
         }
 
-        /* ─── BOTTOM NAV ─── */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(13, 16, 34, 0.92);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(30, 36, 64, 0.5);
-            padding: 10px 16px 14px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            max-width: 480px;
-            margin: 0 auto;
-            width: 100%;
-            z-index: 100;
-        }
-        .bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            color: #64748b;
-            font-size: 11px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            border: none;
-            background: transparent;
-            padding: 4px 12px;
-            border-radius: 12px;
-        }
-        .bottom-nav .nav-item i {
-            font-size: 20px;
-            transition: 0.2s;
-        }
-        .bottom-nav .nav-item:hover,
-        .bottom-nav .nav-item.active {
-            color: #c084fc;
-        }
-        .bottom-nav .nav-item.active i {
-            color: #7c3aed;
-            text-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
-        }
-        .bottom-nav .nav-item .nav-badge {
-            background: #7c3aed;
-            color: #fff;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 1px 8px;
-            border-radius: 40px;
-            margin-top: 1px;
-        }
-
         /* ─── TOAST ─── */
         .toast {
             position: fixed;
-            bottom: 90px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(26, 31, 58, 0.92);
@@ -1461,7 +1401,6 @@
             </div>
             <div class="header-actions">
                 <i class="fas fa-bell"></i>
-                <!-- Three-dots menu button -->
                 <i class="fas fa-ellipsis-v" id="menuToggle" style="font-size:22px; cursor:pointer;"></i>
                 <div class="avatar" id="avatarDisplay">K</div>
             </div>
@@ -1588,10 +1527,19 @@
                 </div>
             </div>
 
+            <!-- ─── QUICK BANNER ─── -->
             <div class="quick-banner">
                 <div class="qb-item" onclick="showPage('bots')">
                     <i class="fas fa-rocket"></i>
                     <span>Deploy Bots</span>
+                </div>
+                <div class="qb-item" onclick="handleQuick('watch')">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Watch tutorials</span>
+                </div>
+                <div class="qb-item" onclick="handleQuick('smm')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>SMM Boost</span>
                 </div>
             </div>
 
@@ -1610,6 +1558,7 @@
                 </div>
             </div>
 
+            <!-- ─── STATS ─── -->
             <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-label">TOTAL SERVERS</div>
@@ -1623,49 +1572,29 @@
                 </div>
             </div>
 
+            <!-- ─── QUICK ACCESS ─── -->
             <div class="section-title" style="margin-top:4px;">
                 <h3>QUICK ACCESS</h3>
             </div>
-
             <div class="quick-access">
-                <div class="qa-item" onclick="openBuyPanel()">
-                    <i class="fas fa-server"></i>
-                    <span>Get Panel</span>
-                    <span class="badge">BUY</span>
-                </div>
-                <div class="qa-item" onclick="topUpSD()">
-                    <i class="fas fa-coins"></i>
-                    <span>Top Up</span>
-                </div>
-                <div class="qa-item" onclick="handleQuick('referral')">
-                    <i class="fas fa-share-alt"></i>
-                    <span>Referral</span>
-                </div>
-                <div class="qa-item" onclick="showPage('servers')">
-                    <i class="fas fa-hdd"></i>
-                    <span>My Servers</span>
-                </div>
-                <div class="qa-item" onclick="openAdminBuy()">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Buy Admin Panel</span>
-                </div>
-                <div class="qa-item" onclick="openProfileModal()">
-                    <i class="fas fa-user"></i>
-                    <span>My Profile</span>
-                </div>
-                <div class="qa-item" onclick="showPage('bots')">
-                    <i class="fas fa-robot"></i>
-                    <span>Bot Templates</span>
-                </div>
-                <div class="qa-item" onclick="handleQuick('support')">
-                    <i class="fas fa-life-ring"></i>
-                    <span>Support</span>
-                </div>
+                <div class="qa-item" onclick="showPage('bots')"><i class="fas fa-robot"></i><span>Deploy Bot</span></div>
+                <div class="qa-item" onclick="topUpSD()"><i class="fas fa-coins"></i><span>Top Up</span></div>
+                <div class="qa-item" onclick="handleQuick('smm')"><i class="fas fa-bolt"></i><span>Boost SMM</span></div>
+                <div class="qa-item" onclick="handleQuick('referral')"><i class="fas fa-share-alt"></i><span>Referral</span></div>
+                <div class="qa-item" onclick="openBuyPanel()"><i class="fas fa-server"></i><span>Get Panel</span></div>
+                <div class="qa-item" onclick="showPage('servers')"><i class="fas fa-hdd"></i><span>My Servers</span></div>
+                <div class="qa-item" onclick="handleMenu('sitelinks')"><i class="fas fa-globe"></i><span>Site Links</span></div>
+                <div class="qa-item" onclick="handleMenu('calculator')"><i class="fas fa-calculator"></i><span>Calculator</span></div>
+                <div class="qa-item" onclick="handleMenu('earn')"><i class="fas fa-money-bill-wave"></i><span>Earn Money</span></div>
+                <div class="qa-item" onclick="handleMenu('api')"><i class="fas fa-plug"></i><span>API</span></div>
+                <div class="qa-item" onclick="openAdminBuy()"><i class="fas fa-user-cog"></i><span>Admin Panel</span></div>
+                <div class="qa-item" onclick="handleQuick('support')"><i class="fas fa-life-ring"></i><span>Support</span></div>
             </div>
 
+            <!-- ─── RECENT ACTIVITY ─── -->
             <div class="section-title" style="margin-top:4px;">
                 <h3>RECENT ACTIVITY</h3>
-                <a href="#">See all</a>
+                <a href="#">View All</a>
             </div>
             <div class="activity-list" id="activityList">
                 <div class="activity-item">
@@ -1845,27 +1774,6 @@
             <span id="toastMsg">Done!</span>
         </div>
 
-        <!-- ─── BOTTOM NAV ─── -->
-        <nav class="bottom-nav">
-            <button class="nav-item active" onclick="navTo('dashboard')">
-                <i class="fas fa-th-large"></i>
-                <span>Home</span>
-            </button>
-            <button class="nav-item" onclick="navTo('servers')">
-                <i class="fas fa-server"></i>
-                <span>Servers</span>
-                <span class="nav-badge" id="navBotsBadge">0</span>
-            </button>
-            <button class="nav-item" onclick="navTo('bots')">
-                <i class="fas fa-robot"></i>
-                <span>Bots</span>
-            </button>
-            <button class="nav-item" onclick="logoutUser()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </button>
-        </nav>
-
     </div>
 
     <script>
@@ -1931,17 +1839,11 @@
             const isBots = pageId === 'bots';
             const avatar = document.querySelector('.header-actions .avatar');
             const bell = document.querySelector('.header-actions .fa-bell');
-            const nav = document.querySelector('.bottom-nav');
             if (avatar) avatar.style.display = (isDashboard || isServers || isBots) ? 'flex' : 'none';
             if (bell) bell.style.display = (isDashboard || isServers || isBots) ? 'block' : 'none';
-            if (nav) nav.style.display = (isDashboard || isServers || isBots) ? 'flex' : 'none';
             if (isDashboard) loadDashboard();
             if (isServers) loadServersPage();
             if (isBots) loadBotsPage();
-            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
-            if (isDashboard) document.querySelector('.bottom-nav .nav-item:first-child')?.classList.add('active');
-            if (isServers) document.querySelector('.bottom-nav .nav-item:nth-child(2)')?.classList.add('active');
-            if (isBots) document.querySelector('.bottom-nav .nav-item:nth-child(3)')?.classList.add('active');
         }
 
         function navTo(page) { showPage(page); }
@@ -2039,7 +1941,6 @@
                 document.getElementById('statBotsSub').textContent = '+' + Math.floor(Math.random() * 5) + ' this week';
                 document.getElementById('statActive').textContent = active;
                 document.getElementById('statActiveSub').textContent = (total > 0 ? Math.round((active / total) * 100) : 0) + '% uptime';
-                document.getElementById('navBotsBadge').textContent = total;
 
                 // Admin check
                 const isAdmin = currentUser.email === 'admin@blacklordtech.com';
@@ -2709,7 +2610,12 @@
 
         // ─── HANDLE QUICK ACTIONS ──────────────────────────────────────
         function handleQuick(action) {
-            const labels = { referral: '🔗 Share your referral link!', servers: '📦 Opening your servers…', support: '🎫 Support ticket system coming soon!' };
+            const labels = {
+                referral: '🔗 Share your referral link!',
+                watch: '📺 Tutorials coming soon!',
+                smm: '🚀 SMM Boost – get likes & followers',
+                support: '🎫 Support ticket system coming soon!'
+            };
             showToast(labels[action] || '⏳ Loading…', 'fa-spinner fa-spin', '#60a5fa');
         }
 
