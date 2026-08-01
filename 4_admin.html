@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLACKLORD · Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0b0d15;
+      color: #e8edf5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-nav {
+      background: rgba(15, 17, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26, 32, 51, 0.6);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .top-nav .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .top-nav .brand i { -webkit-text-fill-color: initial; color: #fbbf24; margin-right: 0.4rem; }
+    .top-nav .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .top-nav .nav-right .auth-link {
+      color: #f87171;
+      background: none;
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .top-nav .nav-right .auth-link:hover { background: rgba(248, 113, 113, 0.1); }
+
+    .main { flex: 1; padding: 24px 32px 40px; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+    .admin-header { margin-bottom: 2rem; }
+    .admin-header h1 { font-size: 2rem; font-weight: 700; }
+    .admin-header p { color: #6b7a9f; font-size: 0.9rem; }
+
+    .admin-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .admin-tabs button {
+      background: rgba(30, 32, 48, 0.5);
+      border: 1px solid #1e2030;
+      color: #64748b;
+      padding: 0.5rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .admin-tabs button.active {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+    .admin-tabs button:hover { color: #e8edf5; }
+
+    .card-panel {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 20px;
+      padding: 1.5rem 1.8rem;
+    }
+    .card-panel .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .card-panel .head h3 { font-size: 1rem; font-weight: 700; }
+
+    .table-wrap { overflow-x: auto; }
+    .table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .table-wrap th { text-align: left; padding: 0.7rem 0.5rem; color: #6b7a9f; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #1e2030; }
+    .table-wrap td { padding: 0.7rem 0.5rem; border-bottom: 1px solid #1a2033; color: #c8d0e6; }
+    .table-wrap tr:last-child td { border-bottom: none; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.7rem;
+      border-radius: 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge-success { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+    .badge-warning { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-danger { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+    .badge-info { background: rgba(123, 156, 255, 0.15); color: #7b9cff; border: 1px solid rgba(123, 156, 255, 0.3); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0b0d15;
+      border: none;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+    .btn-danger {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #fff;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-danger:hover { box-shadow: 0 0 20px rgba(220,38,38,0.3); }
+
+    .input-field {
+      width: 100%;
+      background: #0a0c14;
+      border: 1px solid #1a2033;
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
+      color: #e8edf5;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .input-field:focus { border-color: #fbbf24; }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
+    .modal-close {
+      float: right;
+      background: none;
+      border: none;
+      color: #6b7a9f;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: #e8edf5; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+    .flash {
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .flash-success { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; }
+    .flash-error { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3); color: #f87171; }
+
+    @media (max-width: 768px) {
+      .main { padding: 16px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="brand"><i class="fas fa-bolt"></i> BLACKLORD ADMIN</div>
+    <div class="nav-right">
+      <button class="auth-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div id="flashContainer"></div>
+
+    <div class="admin-header">
+      <h1>Admin Panel</h1>
+      <p>Manage users, packages, vouchers, and inquiries</p>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="active" data-tab="users">Users</button>
+      <button data-tab="packages">Packages</button>
+      <button data-tab="vouchers">Vouchers</button>
+      <button data-tab="inquiries">Inquiries</button>
+    </div>
+
+    <div id="adminContent">
+      <!-- Content loaded by JavaScript -->
+    </div>
+  </main>
+
+  <script>
+    let currentTab = 'users';
+    let adminUsers = [];
+    let adminPackages = [];
+    let adminVouchers = [];
+    let adminInquiries = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if admin is logged in
+      const adminSession = localStorage.getItem('blacklord_admin_session');
+      if (!adminSession) {
+        // Simple admin login check - you can expand this
+        const password = prompt('Enter admin password:');
+        if (password === 'admin123') {
+          localStorage.setItem('blacklord_admin_session', 'true');
+        } else {
+          alert('Invalid password');
+          window.location.href = '1_index.html';
+          return;
+        }
+      }
+      loadData();
+      renderTab('users');
+    });
+
+    function loadData() {
+      // Load users
+      adminUsers = JSON.parse(localStorage.getItem('blacklord_users') || '[]');
+      
+      // Load packages
+      adminPackages = JSON.parse(localStorage.getItem('blacklord_packages') || '[]');
+      if (adminPackages.length === 0) {
+        adminPackages = [
+          { id: 1, name: 'Starter', price: 50, cpu: 20, ram: 512, disk: 2048, description: 'Small bots & lightweight servers', popular: false, active: true },
+          { id: 2, name: 'Standard', price: 75, cpu: 50, ram: 1024, disk: 5120, description: 'Medium workloads & game servers', popular: true, active: true },
+          { id: 3, name: 'Premium', price: 100, cpu: 100, ram: 5120, disk: 10240, description: 'High-performance servers', popular: false, active: true },
+          { id: 4, name: 'Testing', price: 5, cpu: 20, ram: 512, disk: 1024, description: 'Try for 6 hours', popular: false, active: true }
+        ];
+        localStorage.setItem('blacklord_packages', JSON.stringify(adminPackages));
+      }
+
+      // Load vouchers
+      adminVouchers = JSON.parse(localStorage.getItem('blacklord_vouchers') || '[]');
+      if (adminVouchers.length === 0) {
+        adminVouchers = [
+          { id: 1, code: 'WELCOME', amount: 25, status: 'active', created_at: new Date().toISOString() }
+        ];
+        localStorage.setItem('blacklord_vouchers', JSON.stringify(adminVouchers));
+      }
+
+      // Load inquiries
+      adminInquiries = JSON.parse(localStorage.getItem('blacklord_inquiries') || '[]');
+    }
+
+    function renderTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.admin-tabs button[data-tab="${tab}"]`).classList.add('active');
+
+      const container = document.getElementById('adminContent');
+
+      if (tab === 'users') {
+        let html = `<div class="card-panel"><div class="head"><h3>Users (${adminUsers.length})</h3></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Joined</th></tr></thead><tbody>`;
+        if (adminUsers.length === 0) {
+          html += `<tr><td colspan="4" style="text-align:center;color:#6b7a9f;padding:2rem;">No users registered yet</td></tr>`;
+        } else {
+          adminUsers.forEach(u => {
+            html += `<tr><td>#${u.id || 'N/A'}</td><td>${u.firstname || ''} ${u.lastname || ''}</td><td>${u.email}</td><td>${new Date(u.created_at || Date.now()).toLocaleDateString()}</td></tr>`;
+          });
+        }
+        html += `</tbody></table></div></div>`;
+        container.innerHTML = html;
+      }
+
+      else if (tab === 'packages') {
+        let html = `<div class="card-panel"><div class="head"><h3>Packages</h3><button class="btn-primary" onclick="openAddPackage()"><i class="fas fa-plus"></i> Add</button></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Name</th><th>Price</th><th>CPU</th><th>RAM</th><th>Disk</th><th>Popular</th><th>Status</th><th>Actions</th></tr></thead><tbody>`;
+        if (adminPackages.length === 0) {
+          html += `<tr><td colspan="8" style="text-align:center;color:#6b7a9f;padding:2rem;">No packages</td></tr>`;
+        } else {
+          adminPackages.forEach(p => {
+            html += `<tr>
+              <td><strong>${p.name}</strong></td>
+              <td>KSH ${p.price}</td>
+              <td>${p.cpu || 0}%</td>
+              <td>${p.ram || 0}MB</td>
+              <td>${p.disk || 0}MB</td>
+              <td>${p.popular ? '✅' : ''}</td>
+              <td><span class="badge ${p.active ? 'badge-success' : 'badge-danger'}">${p.active ? 'Active' : 'Inactive'}</span></td>
+              <td><button class="btn-primary" style="padding:0.2rem 0.6rem;font-size:0.7rem;" onclick="editPackage(${p.id})">Edit</button>
+                  <button class="btn-danger" style="padding:0.2rem 0.6rem;font-size:0.7rem;" onclick="deletePackage(${p.id})">Del</button></td>
+            </tr>`;
+          });
+        }
+        html += `</tbody></table></div></div>`;
+        container.innerHTML = html;
+      }
+
+      else if (tab === 'vouchers') {
+        let html = `<div class="card-panel"><div class="head"><h3>Vouchers</h3><button class="btn-primary" onclick="openAddVoucher()"><i class="fas fa-plus"></i> Create</button></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Code</th><th>Amount</th><th>Status</th><th>Created</th></tr></thead><tbody>`;
+        if (adminVouchers.length === 0) {
+          html += `<tr><td colspan="4" style="text-align:center;color:#6b7a9f;padding:2rem;">No vouchers</td></tr>`;
+        } else {
+          adminVouchers.forEach(v => {
+            html += `<tr>
+              <td><strong>${v.code}</strong></td>
+              <td>KSH ${v.amount}</td>
+              <td><span class="badge ${v.status === 'active' ? 'badge-success' : 'badge-danger'}">${v.status}</span></td>
+              <td>${new Date(v.created_at).toLocaleDateString()}</td>
+            </tr>`;
+          });
+        }
+        html += `</tbody></table></div></div>`;
+        container.innerHTML = html;
+      }
+
+      else if (tab === 'inquiries') {
+        let html = `<div class="card-panel"><div class="head"><h3>Inquiries (${adminInquiries.length})</h3></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>#</th><th>User</th><th>Subject</th><th>Status</th><th>Date</th><th>Action</th></tr></thead><tbody>`;
+        if (adminInquiries.length === 0) {
+          html += `<tr><td colspan="6" style="text-align:center;color:#6b7a9f;padding:2rem;">No inquiries</td></tr>`;
+        } else {
+          adminInquiries.forEach(i => {
+            html += `<tr>
+              <td>#${i.id || 'N/A'}</td>
+              <td>${i.user_name || i.user_email || 'Unknown'}</td>
+              <td>${i.subject}</td>
+              <td><span class="badge badge-warning">${i.status || 'open'}</span></td>
+              <td>${new Date(i.created_at).toLocaleDateString()}</td>
+              <td><button class="btn-primary" style="padding:0.2rem 0.8rem;font-size:0.7rem;" onclick="viewInquiry(${i.id || 0})">Reply</button></td>
+            </tr>`;
+          });
+        }
+        html += `</tbody></table></div></div>`;
+        container.innerHTML = html;
+      }
+    }
+
+    // ─── PACKAGE CRUD ──────────────────────────────────────────────
+    function openAddPackage() {
+      openModal(`
+        <h3>Add Package</h3>
+        <form id="addPkgForm" style="display:flex;flex-direction:column;gap:0.8rem;margin-top:1rem;">
+          <input class="input-field" id="pkgName" placeholder="Name" required />
+          <input class="input-field" id="pkgPrice" type="number" placeholder="Price" required />
+          <input class="input-field" id="pkgCpu" type="number" placeholder="CPU %" value="50" />
+          <input class="input-field" id="pkgRam" type="number" placeholder="RAM MB" value="1024" />
+          <input class="input-field" id="pkgDisk" type="number" placeholder="Disk MB" value="5120" />
+          <input class="input-field" id="pkgDesc" placeholder="Description" />
+          <div><label><input type="checkbox" id="pkgPopular" /> Popular</label></div>
+          <button type="submit" class="btn-primary">Create Package</button>
+        </form>
+      `);
+      document.getElementById('addPkgForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pkg = {
+          id: Date.now(),
+          name: document.getElementById('pkgName').value.trim(),
+          price: parseFloat(document.getElementById('pkgPrice').value) || 0,
+          cpu: parseInt(document.getElementById('pkgCpu').value) || 0,
+          ram: parseInt(document.getElementById('pkgRam').value) || 0,
+          disk: parseInt(document.getElementById('pkgDisk').value) || 0,
+          description: document.getElementById('pkgDesc').value.trim(),
+          popular: document.getElementById('pkgPopular').checked,
+          active: true,
+        };
+        adminPackages.push(pkg);
+        localStorage.setItem('blacklord_packages', JSON.stringify(adminPackages));
+        closeModal();
+        flash('Package added!', 'success');
+        renderTab('packages');
+      });
+    }
+
+    function editPackage(id) {
+      const pkg = adminPackages.find(p => p.id === id);
+      if (!pkg) return;
+      openModal(`
+        <h3>Edit Package</h3>
+        <form id="editPkgForm" style="display:flex;flex-direction:column;gap:0.8rem;margin-top:1rem;">
+          <input class="input-field" id="epName" value="${pkg.name}" required />
+          <input class="input-field" id="epPrice" type="number" value="${pkg.price}" required />
+          <input class="input-field" id="epCpu" type="number" value="${pkg.cpu || 0}" />
+          <input class="input-field" id="epRam" type="number" value="${pkg.ram || 0}" />
+          <input class="input-field" id="epDisk" type="number" value="${pkg.disk || 0}" />
+          <input class="input-field" id="epDesc" value="${pkg.description || ''}" />
+          <div><label><input type="checkbox" id="epPopular" ${pkg.popular ? 'checked' : ''} /> Popular</label></div>
+          <div><label><input type="checkbox" id="epActive" ${pkg.active ? 'checked' : ''} /> Active</label></div>
+          <button type="submit" class="btn-primary">Update Package</button>
+        </form>
+      `);
+      document.getElementById('editPkgForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        pkg.name = document.getElementById('epName').value.trim();
+        pkg.price = parseFloat(document.getElementById('epPrice').value) || 0;
+        pkg.cpu = parseInt(document.getElementById('epCpu').value) || 0;
+        pkg.ram = parseInt(document.getElementById('epRam').value) || 0;
+        pkg.disk = parseInt(document.getElementById('epDisk').value) || 0;
+        pkg.description = document.getElementById('epDesc').value.trim();
+        pkg.popular = document.getElementById('epPopular').checked;
+        pkg.active = document.getElementById('epActive').checked;
+        localStorage.setItem('blacklord_packages', JSON.stringify(adminPackages));
+        closeModal();
+        flash('Package updated!', 'success');
+        renderTab('packages');
+      });
+    }
+
+    function deletePackage(id) {
+      if (!confirm('Delete this package?')) return;
+      adminPackages = adminPackages.filter(p => p.id !== id);
+      localStorage.setItem('blacklord_packages', JSON.stringify(adminPackages));
+      flash('Package deleted.', 'info');
+      renderTab('packages');
+    }
+
+    // ─── VOUCHER CRUD ──────────────────────────────────────────────
+    function openAddVoucher() {
+      openModal(`
+        <h3>Create Voucher</h3>
+        <form id="addVoucherForm" style="display:flex;flex-direction:column;gap:0.8rem;margin-top:1rem;">
+          <input class="input-field" id="vCode" placeholder="6-char code" maxlength="6" style="text-transform:uppercase;" required />
+          <input class="input-field" id="vAmount" type="number" placeholder="Amount (KSH)" required />
+          <button type="submit" class="btn-primary">Activate Voucher</button>
+        </form>
+      `);
+      document.getElementById('addVoucherForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const code = document.getElementById('vCode').value.trim().toUpperCase();
+        const amount = parseFloat(document.getElementById('vAmount').value);
+        if (code.length !== 6) { flash('Code must be 6 characters.', 'error'); return; }
+        if (!amount || amount <= 0) { flash('Invalid amount.', 'error'); return; }
+        if (adminVouchers.find(v => v.code === code)) { flash('Code already exists.', 'error'); return; }
+        adminVouchers.push({
+          id: Date.now(),
+          code,
+          amount,
+          status: 'active',
+          created_at: new Date().toISOString()
+        });
+        localStorage.setItem('blacklord_vouchers', JSON.stringify(adminVouchers));
+        closeModal();
+        flash(`Voucher ${code} activated for KSH ${amount}`, 'success');
+        renderTab('vouchers');
+      });
+    }
+
+    // ─── INQUIRY REPLY ─────────────────────────────────────────────
+    function viewInquiry(id) {
+      const inq = adminInquiries.find(i => i.id === id);
+      if (!inq) {
+        flash('Inquiry not found.', 'error');
+        return;
+      }
+      openModal(`
+        <h3>${inq.subject}</h3>
+        <p style="color:#6b7a9f;font-size:0.85rem;">From: ${inq.user_name || inq.user_email}</p>
+        <div style="background:#0a0c14;padding:1rem;border-radius:12px;margin:1rem 0;border:1px solid #1a2033;">
+          ${inq.message}
+        </div>
+        <form id="replyForm" style="display:flex;flex-direction:column;gap:0.8rem;margin-top:1rem;">
+          <textarea class="input-field" id="replyMsg" placeholder="Type your reply..." rows="3" required></textarea>
+          <button type="submit" class="btn-primary"><i class="fas fa-reply"></i> Reply</button>
+        </form>
+      `);
+      document.getElementById('replyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const reply = document.getElementById('replyMsg').value.trim();
+        if (!reply) return;
+        inq.status = 'replied';
+        inq.admin_reply = reply;
+        localStorage.setItem('blacklord_inquiries', JSON.stringify(adminInquiries));
+        closeModal();
+        flash('Reply sent!', 'success');
+        renderTab('inquiries');
+      });
+    }
+
+    // ─── MODAL HELPERS ─────────────────────────────────────────────
+    function openModal(html) {
+      const overlay = document.getElementById('modalOverlay');
+      if (!overlay) {
+        const div = document.createElement('div');
+        div.className = 'modal-overlay';
+        div.id = 'modalOverlay';
+        div.innerHTML = `<div class="modal-box"><button class="modal-close" onclick="closeModal()">&times;</button><div id="modalContent"></div></div>`;
+        document.body.appendChild(div);
+      }
+      document.getElementById('modalContent').innerHTML = html;
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function closeModal() {
+      const overlay = document.getElementById('modalOverlay');
+      if (overlay) overlay.classList.remove('open');
+    }
+
+    // ─── FLASH ──────────────────────────────────────────────────────
+    function flash(msg, type = 'info') {
+      const container = document.getElementById('flashContainer');
+      const div = document.createElement('div');
+      div.className = `flash flash-${type}`;
+      div.textContent = msg;
+      container.appendChild(div);
+      setTimeout(() => { if (div.parentNode) div.remove(); }, 5000);
+    }
+
+    // ─── LOGOUT ────────────────────────────────────────────────────
+    function logout() {
+      if (confirm('Logout from admin?')) {
+        localStorage.removeItem('blacklord_admin_session');
+        window.location.href = '1_index.html';
+      }
+    }
+
+    // ─── TAB SWITCHING ─────────────────────────────────────────────
+    document.querySelectorAll('.admin-tabs button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        renderTab(this.dataset.tab);
+      });
+    });
+
+    // ─── EXPOSE GLOBALS ────────────────────────────────────────────
+    window.openAddPackage = openAddPackage;
+    window.editPackage = editPackage;
+    window.deletePackage = deletePackage;
+    window.openAddVoucher = openAddVoucher;
+    window.viewInquiry = viewInquiry;
+    window.closeModal = closeModal;
+    window.flash = flash;
+    window.logout = logout;
+
+    console.log('🚀 BLACKLORD Admin Panel ready.');
+    console.log('Admin password: admin123');
+  </script>
+</body>
+</html>

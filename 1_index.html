@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLACKLORD TECH INC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0b0d15;
+      color: #e8edf5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .landing-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border-radius: 32px;
+      overflow: hidden;
+      background: #0b0d15;
+    }
+    .landing-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=70') center / cover no-repeat;
+      filter: brightness(0.3) saturate(0.6);
+      z-index: 0;
+    }
+    .landing-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11, 13, 21, 0.5) 0%, rgba(11, 13, 21, 0.85) 100%);
+      z-index: 1;
+    }
+    .hero {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 780px;
+      padding: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #f0f4ff;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      letter-spacing: 0.02em;
+    }
+    .hero .welcome-text {
+      font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+      color: #c8d0e6;
+      line-height: 1.9;
+      max-width: 660px;
+      margin: 0 auto 2.5rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    }
+    .hero .welcome-text strong { color: #fbbf24; font-weight: 700; }
+    .hero .circle-badge {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #1f2842, #0b0d15);
+      border: 2px solid #fbbf24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2.5rem;
+      box-shadow: 0 0 50px rgba(251, 191, 36, 0.15);
+      padding: 10px;
+    }
+    .hero .circle-badge .badge-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #f0f4ff;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+    .hero .circle-badge .badge-text .small {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: #94a3b8;
+      letter-spacing: 0.1em;
+    }
+    .hero .btn-primary {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0b0d15;
+      border: none;
+      padding: 0.9rem 2.8rem;
+      border-radius: 40px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 40px rgba(251, 191, 36, 0.25);
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    .hero .btn-primary:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 60px rgba(251, 191, 36, 0.4);
+    }
+    @media (max-width: 600px) {
+      .hero .circle-badge { width: 120px; height: 120px; }
+      .hero .circle-badge .badge-text { font-size: 0.9rem; }
+      .landing-wrapper { padding: 1rem; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="landing-wrapper">
+    <div class="hero">
+      <h1>𝐓𝐇𝐄 𝐅𝐔𝐓𝐔𝐑𝐄 𝐒𝐓𝐀𝐑𝐓𝐒 𝐀𝐓<br />𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃 𝐓𝐄𝐂𝐇 𝐈𝐍𝐂</h1>
+      <div class="welcome-text">
+        <i>𝑭𝒓𝒐𝒎 𝒄𝒍𝒐𝒖𝒅 𝒉𝒐𝒔𝒕𝒊𝒏𝒈 𝒕𝒐 𝒊𝒏𝒕𝒆𝒍𝒍𝒊𝒈𝒆𝒏𝒕 𝒂𝒖𝒕𝒐𝒎𝒂𝒕𝒊𝒐𝒏, 𝒘𝒆 𝒅𝒆𝒍𝒊𝒗𝒆𝒓 𝒕𝒆𝒄𝒉𝒏𝒐𝒍𝒐𝒈𝒚 𝒕𝒉𝒂𝒕 𝒅𝒓𝒊𝒗𝒆𝒔 𝒔𝒖𝒄𝒄𝒆𝒔𝒔. <strong>𝑾𝒉𝒆𝒕𝒉𝒆𝒓 𝒚𝒐𝒖'𝒓𝒆 𝒂 𝒄𝒓𝒆𝒂𝒕𝒐𝒓, 𝒔𝒕𝒂𝒓𝒕𝒖𝒑, 𝒐𝒓 𝒆𝒔𝒕𝒂𝒃𝒍𝒊𝒔𝒉𝒆𝒅 𝒃𝒖𝒔𝒊𝒏𝒆𝒔𝒔,</strong> 𝒐𝒖𝒓 𝒑𝒐𝒘𝒆𝒓𝒇𝒖𝒍 𝑷𝒕𝒆𝒓𝒐𝒅𝒂𝒄𝒕𝒚𝒍 𝒉𝒐𝒔𝒕𝒊𝒏𝒈, 𝒂𝒅𝒗𝒂𝒏𝒄𝒆𝒅 𝑾𝒉𝒂𝒕𝒔𝑨𝒑𝒑 𝒂𝒖𝒕𝒐𝒎𝒂𝒕𝒊𝒐𝒏, 𝒂𝒏𝒅 𝒊𝒏𝒏𝒐𝒗𝒂𝒕𝒊𝒗𝒆 𝒅𝒊𝒈𝒊𝒕𝒂𝒍 𝒔𝒐𝒍𝒖𝒕𝒊𝒐𝒏𝒔 𝒂𝒓𝒆 𝒅𝒆𝒔𝒊𝒈𝒏𝒆𝒅 𝒕𝒐 𝒉𝒆𝒍𝒑 𝒚𝒐𝒖 𝒔𝒄𝒂𝒍𝒆 𝒘𝒊𝒕𝒉 𝒄𝒐𝒏𝒇𝒊𝒅𝒆𝒏𝒄𝒆.</i>
+      </div>
+      <div class="circle-badge">
+        <span class="badge-text">
+          𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃<br />
+          𝐓𝐄𝐂𝐇,<br />
+          <span class="small">𝐈𝐍𝐂𝐎𝐑𝐏𝐎𝐑𝐀𝐓𝐄𝐃</span>
+        </span>
+      </div>
+      <a href="2_register.html" class="btn-primary">🚀 Get Started</a>
+    </div>
+  </div>
+</body>
+</html>

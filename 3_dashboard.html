@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLACKLORD BOT HOST · Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0b0d15;
+      color: #e8edf5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #141824; }
+    ::-webkit-scrollbar-thumb { background: #2f3a5a; border-radius: 10px; }
+
+    .top-nav {
+      background: rgba(15, 17, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26, 32, 51, 0.6);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .top-nav .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .top-nav .brand i { -webkit-text-fill-color: initial; color: #fbbf24; margin-right: 0.4rem; }
+    .top-nav .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .top-nav .nav-right .badge-ke {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(26, 32, 51, 0.6);
+      border-radius: 30px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6b7a9f;
+    }
+    .top-nav .nav-right .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #0b0d15;
+      cursor: pointer;
+      border: 2px solid #2f3d66;
+    }
+    .top-nav .nav-right .auth-link {
+      color: #94a3b8;
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .top-nav .nav-right .auth-link:hover { color: #fbbf24; }
+
+    .main { flex: 1; padding: 24px 32px 40px; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+    .dash-header { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 1.8rem; }
+    .dash-header .greeting h1 { font-size: 1.6rem; font-weight: 700; color: #e8edf5; }
+    .dash-header .greeting h1 span { color: #fbbf24; }
+    .dash-header .greeting p { color: #6b7a9f; font-size: 0.9rem; }
+
+    .voucher-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem;
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 40px;
+      padding: 0.4rem 0.4rem 0.4rem 1.2rem;
+      max-width: 480px;
+    }
+    .voucher-row .input-field {
+      flex: 1;
+      min-width: 150px;
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0;
+      color: #e8edf5;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .voucher-row .input-field::placeholder { color: #4a5a7a; }
+    .voucher-row .btn-primary {
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0b0d15;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+    .voucher-row .btn-primary:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+
+    .balance-card {
+      background: linear-gradient(145deg, #11141f, #0f111a);
+      border: 1px solid #1a2033;
+      border-radius: 24px;
+      padding: 1.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .balance-card .left .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7a9f;
+    }
+    .balance-card .left .actions {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .action-circle {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      user-select: none;
+    }
+    .action-circle .circle {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #4a5a7a;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .action-circle:hover { color: #e8edf5; }
+    .action-circle:hover .circle { border-color: #fbbf24; }
+    .action-circle.topup .circle { border-color: #fbbf24; background: #fbbf24; }
+    .action-circle.topup { color: #fbbf24; font-weight: 600; }
+    .action-circle.topup:hover { color: #f59e0b; }
+    .action-circle.topup:hover .circle { background: #f59e0b; border-color: #f59e0b; }
+
+    .balance-card .right { text-align: right; }
+    .balance-card .right .xd { font-size: 2.8rem; font-weight: 800; color: #fbbf24; line-height: 1; }
+    .balance-card .right .ksh { font-size: 1.2rem; font-weight: 600; color: #94a3b8; margin-left: 0.5rem; }
+    .balance-card .right .change { display: block; font-size: 0.8rem; font-weight: 600; color: #f87171; margin-top: 0.2rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+    .stat-item {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stat-item .label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7a9f; }
+    .stat-item .value { font-size: 1.6rem; font-weight: 700; color: #fbbf24; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .card-panel {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 20px;
+      padding: 1.5rem 1.8rem;
+    }
+    .card-panel .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .card-panel .head h3 { font-size: 1rem; font-weight: 700; color: #e8edf5; }
+    .card-panel .head .link { color: #fbbf24; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: none; }
+    .card-panel .head .link:hover { text-decoration: underline; }
+
+    .quantum-totals {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) { .quantum-totals { grid-template-columns: 1fr 1fr; } }
+    .quantum-totals .q-item {
+      background: #0a0c14;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      border: 1px solid #1a2033;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quantum-totals .q-item .lbl { font-size: 0.65rem; font-weight: 600; color: #6b7a9f; text-transform: uppercase; }
+    .quantum-totals .q-item .val { font-size: 1.1rem; font-weight: 700; color: #fbbf24; }
+
+    .order-stacker {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .order-stacker .pill {
+      background: #0a0c14;
+      border: 1px solid #1a2033;
+      border-radius: 30px;
+      padding: 0.4rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .order-stacker .pill .count { font-weight: 700; font-size: 1rem; }
+    .order-stacker .pill.completed { border-left: 3px solid #34d399; }
+    .order-stacker .pill.processing { border-left: 3px solid #fbbf24; }
+    .order-stacker .pill.failed { border-left: 3px solid #f87171; }
+
+    .buy-offers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .buy-offers .offer {
+      background: #0a0c14;
+      border: 1px solid #1a2033;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .buy-offers .offer .tag { font-weight: 600; font-size: 0.85rem; }
+    .buy-offers .offer .bonus { color: #fbbf24; font-weight: 600; font-size: 0.8rem; }
+    .buy-offers .offer .btn {
+      background: #fbbf24;
+      border: none;
+      color: #0b0d15;
+      padding: 0.15rem 1rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .buy-offers .offer .btn:hover { background: #f59e0b; }
+
+    .refer-earn {
+      background: linear-gradient(135deg, #1a2033, #11141f);
+      border: 1px solid #fbbf2440;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .refer-earn .text { font-size: 0.8rem; color: #94a3b8; }
+    .refer-earn .text strong { color: #fbbf24; }
+    .refer-earn .btn {
+      background: #fbbf24;
+      border: none;
+      color: #0b0d15;
+      padding: 0.3rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .refer-earn .btn:hover { background: #f59e0b; }
+
+    .cloud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .cloud-header .badge-ke {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #1a2033;
+      border-radius: 30px;
+      padding: 0.1rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6b7a9f;
+    }
+    .tutorial-box {
+      background: #0a0c14;
+      border: 1px solid #1a2033;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tutorial-box .left .title { font-weight: 600; font-size: 0.85rem; }
+    .tutorial-box .left .sub { font-size: 0.7rem; color: #6b7a9f; }
+    .tutorial-box .btn {
+      background: #1a2033;
+      border: none;
+      color: #94a3b8;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+
+    .quick-access {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+    }
+    @media (max-width: 600px) { .quick-access { grid-template-columns: repeat(2, 1fr); } }
+    .quick-access .q-item {
+      background: #0a0c14;
+      border: 1px solid #1a2033;
+      border-radius: 12px;
+      padding: 0.6rem 0.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #94a3b8;
+      text-decoration: none;
+    }
+    .quick-access .q-item:hover { background: #1a2033; border-color: #fbbf24; color: #e8edf5; }
+    .quick-access .q-item i { font-size: 1.4rem; display: block; margin-bottom: 0.2rem; color: #fbbf24; }
+    .quick-access .q-item .qlbl { font-size: 0.6rem; font-weight: 500; }
+
+    .activity {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 20px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .activity .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .activity .head h3 { font-size: 1rem; font-weight: 700; }
+    .activity .head .actions a { color: #6b7a9f; font-size: 0.7rem; margin-left: 0.8rem; text-decoration: none; }
+    .activity .head .actions a:hover { color: #fbbf24; }
+
+    .activity-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #1a2033;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-item .info .title { font-weight: 500; font-size: 0.85rem; }
+    .activity-item .info .date { font-size: 0.7rem; color: #6b7a9f; }
+    .activity-item .amount { font-weight: 700; font-size: 0.9rem; }
+    .activity-item .amount.positive { color: #34d399; }
+    .activity-item .amount.negative { color: #f87171; }
+
+    .dash-footer {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 20px;
+      padding: 1.5rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .dash-footer .brand { font-weight: 700; font-size: 0.9rem; }
+    .dash-footer .brand small { display: block; font-weight: 400; font-size: 0.7rem; color: #6b7a9f; }
+    .dash-footer .links { display: flex; gap: 1.5rem; font-size: 0.75rem; font-weight: 600; color: #6b7a9f; }
+    .dash-footer .links a { color: #6b7a9f; text-decoration: none; }
+    .dash-footer .links a:hover { color: #fbbf24; }
+    .dash-footer .social { display: flex; gap: 1rem; font-size: 1.2rem; }
+    .dash-footer .social a { color: #6b7a9f; }
+    .dash-footer .social a:hover { color: #fbbf24; }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #11141f;
+      border: 1px solid #1a2033;
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center; }
+    .modal-close { float: right; background: none; border: none; color: #6b7a9f; font-size: 1.4rem; cursor: pointer; }
+    .modal-close:hover { color: #e8edf5; }
+
+    .payment-methods { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #0a0c14;
+      border: 2px solid #1a2033;
+      border-radius: 14px;
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .payment-method:hover { border-color: #2f4060; }
+    .payment-method.selected { border-color: #fbbf24; background: rgba(251,191,36,0.08); }
+    .payment-method .icon { font-size: 1.6rem; width: 2rem; text-align: center; }
+    .payment-method .name { font-weight: 600; font-size: 0.95rem; }
+    .payment-method .desc { font-size: 0.7rem; color: #6b7a9f; }
+    .payment-method .check { margin-left: auto; color: #fbbf24; font-size: 1.2rem; display: none; }
+    .payment-method.selected .check { display: block; }
+
+    .topup-amount { margin: 1.2rem 0; }
+    .topup-amount label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7a9f; margin-bottom: 0.3rem; }
+    .topup-amount .input-field { text-align: center; font-size: 1.2rem; font-weight: 700; padding: 0.8rem; width: 100%; background: #0a0c14; border: 1px solid #1a2033; border-radius: 12px; color: #e8edf5; outline: none; font-family: 'Inter', sans-serif; }
+    .topup-amount .input-field:focus { border-color: #fbbf24; }
+
+    .topup-actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+    .topup-actions .btn-primary { flex: 1; justify-content: center; padding: 0.8rem; font-size: 1rem; }
+    .topup-actions .btn-outline { flex: 1; justify-content: center; padding: 0.8rem; font-size: 1rem; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0b0d15;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn-outline {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid #1a2033;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+    .flash {
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .flash-success { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; }
+    .flash-error { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3); color: #f87171; }
+    .flash-info { background: rgba(123, 156, 255, 0.1); border: 1px solid rgba(123, 156, 255, 0.3); color: #7b9cff; }
+
+    .input-field {
+      width: 100%;
+      background: #0a0c14;
+      border: 1px solid #1a2033;
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
+      color: #e8edf5;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .input-field:focus { border-color: #fbbf24; }
+
+    .text-muted { color: #6b7a9f; }
+    .text-sm { font-size: 0.85rem; }
+    .text-xs { font-size: 0.7rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .flex { display: flex; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .flex-wrap { flex-wrap: wrap; }
+    .w-full { width: 100%; }
+
+    @media (max-width: 768px) {
+      .main { padding: 16px; }
+      .balance-card { flex-direction: column; align-items: stretch; }
+      .balance-card .right { text-align: left; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .quick-access { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .quantum-totals { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="brand"><i class="fas fa-bolt"></i> BLACKLORD BOT HOST</div>
+    <div class="nav-right">
+      <span class="badge-ke">KE</span>
+      <div class="avatar" id="avatarBtn">G</div>
+      <button class="auth-link" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div id="flashContainer"></div>
+    <div id="page-dashboard">
+      <div class="dash-header">
+        <div class="greeting">
+          <h1>DASHBOARD</h1>
+          <p>Welcome back, <span id="userName">Guest</span></p>
+        </div>
+        <div class="voucher-row">
+          <input class="input-field" id="dashVoucherCode" placeholder="Enter voucher code..." maxlength="6" style="text-transform:uppercase;" />
+          <button class="btn-primary" id="dashRedeemBtn">Redeem</button>
+        </div>
+      </div>
+
+      <div class="balance-card">
+        <div class="left">
+          <div class="label">TOTAL BALANCE</div>
+          <div class="actions">
+            <span class="action-circle"><span class="circle"></span> App</span>
+            <span class="action-circle"><span class="circle"></span> Sell XD</span>
+            <span class="action-circle topup" onclick="openTopUp()"><span class="circle"></span> Top Up</span>
+          </div>
+        </div>
+        <div class="right">
+          <span class="xd" id="balanceXd">42</span>
+          <span class="ksh" id="balanceKsh">58.23 KSH</span>
+          <span class="change" id="balanceChange">-16.0%</span>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item"><span class="label">TOTAL BOTS</span><span class="value" id="totalBots">12</span></div>
+        <div class="stat-item"><span class="label">ACTIVE BOTS</span><span class="value" id="activeBots">8</span></div>
+        <div class="stat-item"><span class="label">REFERRALS</span><span class="value" id="referrals">9</span></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card-panel">
+          <div class="head"><h3>BLACKLORD XMD QUANTUM</h3><span class="link">View All</span></div>
+          <div class="quantum-totals">
+            <div class="q-item"><span class="lbl">TOTAL BOTS</span><span class="val" id="qTotalBots">12</span></div>
+            <div class="q-item"><span class="lbl">ACTIVE BOTS</span><span class="val" id="qActiveBots">8</span></div>
+            <div class="q-item"><span class="lbl">REFERRALS</span><span class="val" id="qReferrals">9</span></div>
+          </div>
+          <div class="order-stacker">
+            <div class="pill completed"><span class="count" id="completedOrders">24</span> COMPLETED</div>
+            <div class="pill processing"><span class="count" id="processingOrders">6</span> PROCESSING</div>
+            <div class="pill failed"><span class="count" id="failedOrders">3</span> FAILED</div>
+          </div>
+          <div class="buy-offers">
+            <div class="offer"><span class="tag">1,000xds</span><span class="bonus">+250xds</span><button class="btn" onclick="flash('Buy offer coming soon!', 'info')">Buy</button></div>
+            <div class="offer"><span class="tag">2,000xds</span><span class="bonus">+500xds</span><button class="btn" onclick="flash('Buy offer coming soon!', 'info')">Buy</button></div>
+          </div>
+          <div class="refer-earn">
+            <span class="text">Refer & Earn <strong>Earn 5 XD 6.47 KSH</strong> for every deposit your referrals make!</span>
+            <button class="btn" onclick="flash('Referral program coming soon!', 'info')">Start earning →</button>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="cloud-header"><h3>BLACKLORD CLOUD OPS</h3><span class="badge-ke">KE</span></div>
+          <div class="tutorial-box">
+            <div class="left"><div class="title">Panel Server Tutorial</div><div class="sub">Panel Server Setup</div></div>
+            <button class="btn" onclick="flash('Tutorial coming soon!', 'info')">Watch</button>
+          </div>
+          <div class="quick-access">
+            <a href="#" class="q-item" onclick="flash('Deploy Bot feature coming soon!', 'info')"><i class="fas fa-robot"></i><span class="qlbl">Deploy Bot</span></a>
+            <a href="#" class="q-item" onclick="openTopUp()"><i class="fas fa-arrow-up"></i><span class="qlbl">Top Up</span></a>
+            <a href="#" class="q-item" onclick="flash('Referral program coming soon!', 'info')"><i class="fas fa-user-plus"></i><span class="qlbl">Referral</span></a>
+            <a href="#" class="q-item" onclick="flash('Get Panel feature coming soon!', 'info')"><i class="fas fa-server"></i><span class="qlbl">Get Panel</span></a>
+            <a href="#" class="q-item" onclick="flash('My Servers feature coming soon!', 'info')"><i class="fas fa-hdd"></i><span class="qlbl">My Servers</span></a>
+            <a href="#" class="q-item" onclick="flash('Site Links feature coming soon!', 'info')"><i class="fas fa-link"></i><span class="qlbl">Site Links</span></a>
+            <a href="#" class="q-item" onclick="flash('Calculator feature coming soon!', 'info')"><i class="fas fa-calculator"></i><span class="qlbl">Calculator</span></a>
+            <a href="#" class="q-item" onclick="flash('Earn Money program coming soon!', 'info')"><i class="fas fa-coins"></i><span class="qlbl">Earn Money</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity">
+        <div class="head"><h3>BLACKLORD XMD DEPLOYMENT</h3><div class="actions"><a href="#" onclick="flash('View all activity', 'info')">Earn Money</a></div></div>
+        <div id="activityList">
+          <div class="activity-item"><div class="info"><div class="title">Refund Virtual Number 115co...</div><div class="date">17 Jun</div></div><div class="amount positive">+41 XD <span style="font-weight:400;color:#6b7a9f;margin-left:0.5rem;">56.93 KSH</span></div></div>
+          <div class="activity-item"><div class="info"><div class="title">Virtual Number: 115com (engl...)</div><div class="date">17 Jun</div></div><div class="amount negative">-41 XD <span style="font-weight:400;color:#6b7a9f;margin-left:0.5rem;">56.93 KSH</span></div></div>
+          <div class="activity-item"><div class="info"><div class="title">Refund Virtual Number 115co...</div><div class="date">17 Jun</div></div><div class="amount positive">+41 XD <span style="font-weight:400;color:#6b7a9f;margin-left:0.5rem;">56.93 KSH</span></div></div>
+          <div class="activity-item"><div class="info"><div class="title">Virtual Number: 115com (engl...)</div><div class="date">17 Jun</div></div><div class="amount negative">-41 XD <span style="font-weight:400;color:#6b7a9f;margin-left:0.5rem;">56.93 KSH</span></div></div>
+        </div>
+      </div>
+
+      <div class="dash-footer">
+        <div class="brand">BLACKLORD XMD PRO <small>BLACKLORD XMD PRO is a digital platform for WhatsApp bot hosting, social media boosting and panel/VPS services built by Blacklord Tech Inc.</small></div>
+        <div class="links"><a href="#">SERVICE</a><a href="#">COMPANY</a><a href="#">SOCIAL</a></div>
+        <div class="social"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-telegram"></i></a></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ─── TOP‑UP MODAL ─── -->
+  <div class="modal-overlay" id="topupModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeTopUp()">&times;</button>
+      <h3>Top Up</h3>
+      <p class="text-muted text-sm" style="text-align:center;margin-bottom:1rem;">Choose your payment method</p>
+      <div class="payment-methods">
+        <div class="payment-method" data-method="paystack" onclick="selectMethod(this)">
+          <span class="icon"><i class="fas fa-credit-card" style="color:#3b82f6;"></i></span>
+          <div><div class="name">Paystack</div><div class="desc">Card · Bank · USSD</div></div>
+          <span class="check"><i class="fas fa-check-circle"></i></span>
+        </div>
+        <div class="payment-method" data-method="mpesa" onclick="selectMethod(this)">
+          <span class="icon"><i class="fas fa-mobile-alt" style="color:#25d366;"></i></span>
+          <div><div class="name">M-Pesa</div><div class="desc">STK Push</div></div>
+          <span class="check"><i class="fas fa-check-circle"></i></span>
+        </div>
+        <div class="payment-method" data-method="pesapal" onclick="selectMethod(this)">
+          <span class="icon"><i class="fas fa-globe" style="color:#f59e0b;"></i></span>
+          <div><div class="name">Pesapal</div><div class="desc">Online / Mobile</div></div>
+          <span class="check"><i class="fas fa-check-circle"></i></span>
+        </div>
+        <div class="payment-method" data-method="crypto" onclick="selectMethod(this)">
+          <span class="icon"><i class="fab fa-bitcoin" style="color:#f7931a;"></i></span>
+          <div><div class="name">Crypto</div><div class="desc">BTC · ETH · USDC</div></div>
+          <span class="check"><i class="fas fa-check-circle"></i></span>
+        </div>
+      </div>
+      <div class="topup-amount">
+        <label>Amount (KSH)</label>
+        <input class="input-field" id="topupAmount" type="number" min="10" placeholder="Enter amount" value="8" />
+      </div>
+      <div class="topup-actions">
+        <button class="btn-outline" onclick="closeTopUp()">Cancel</button>
+        <button class="btn-primary" onclick="confirmTopUp()">Confirm Top-Up</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let walletBalance = 0;
+    let selectedMethod = null;
+    let currentUser = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const userData = localStorage.getItem('blacklord_current_user');
+      if (!userData) { window.location.href = '2_register.html'; return; }
+      currentUser = JSON.parse(userData);
+      document.getElementById('userName').textContent = currentUser.firstname || currentUser.email.split('@')[0];
+      document.querySelector('.avatar').textContent = (currentUser.firstname || 'G')[0].toUpperCase();
+      loadState();
+      updateUI();
+    });
+
+    function loadState() {
+      const saved = localStorage.getItem('blacklord_dashboard_data');
+      if (saved) { try { walletBalance = JSON.parse(saved).walletBalance || 0; } catch {} }
+      else { walletBalance = 0; }
+      saveState();
+    }
+
+    function saveState() {
+      localStorage.setItem('blacklord_dashboard_data', JSON.stringify({ walletBalance }));
+    }
+
+    function flash(msg, type = 'info') {
+      const container = document.getElementById('flashContainer');
+      const div = document.createElement('div');
+      div.className = `flash flash-${type}`;
+      div.textContent = msg;
+      container.appendChild(div);
+      setTimeout(() => { if (div.parentNode) div.remove(); }, 5000);
+    }
+
+    function updateUI() {
+      const xd = Math.floor(walletBalance / 1.38) || 42;
+      const ksh = walletBalance || 58.23;
+      document.getElementById('balanceXd').textContent = xd;
+      document.getElementById('balanceKsh').textContent = ksh.toFixed(2) + ' KSH';
+    }
+
+    document.getElementById('dashRedeemBtn').addEventListener('click', function() {
+      const code = document.getElementById('dashVoucherCode').value.trim().toUpperCase();
+      if (code.length !== 6) { flash('Voucher code must be exactly 6 characters.', 'error'); return; }
+      let voucherCodes = JSON.parse(localStorage.getItem('blacklord_vouchers') || '[]');
+      if (voucherCodes.length === 0) {
+        voucherCodes = [{ id: 1, code: 'WELCOME', amount: 25, status: 'active', created_at: new Date().toISOString() }];
+        localStorage.setItem('blacklord_vouchers', JSON.stringify(voucherCodes));
+      }
+      const voucher = voucherCodes.find(v => v.code === code && v.status === 'active');
+      if (!voucher) { flash('Invalid or already used voucher code.', 'error'); return; }
+      voucher.status = 'used';
+      localStorage.setItem('blacklord_vouchers', JSON.stringify(voucherCodes));
+      walletBalance += voucher.amount;
+      saveState();
+      flash(`Voucher ${code} redeemed! +${'KSH ' + Number(voucher.amount).toLocaleString()}`, 'success');
+      document.getElementById('dashVoucherCode').value = '';
+      updateUI();
+    });
+
+    document.getElementById('dashVoucherCode').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') { document.getElementById('dashRedeemBtn').click(); }
+    });
+
+    function openTopUp() {
+      document.getElementById('topupModal').classList.add('open');
+      document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+      selectedMethod = null;
+      document.getElementById('topupAmount').value = 8;
+    }
+
+    function closeTopUp() { document.getElementById('topupModal').classList.remove('open'); }
+
+    function selectMethod(el) {
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedMethod = el.dataset.method;
+    }
+
+    function confirmTopUp() {
+      const amount = parseFloat(document.getElementById('topupAmount').value);
+      if (!selectedMethod) { flash('Please select a payment method.', 'error'); return; }
+      if (!amount || amount < 10) { flash('Minimum deposit is KSH 10.', 'error'); return; }
+      walletBalance += amount;
+      saveState();
+      closeTopUp();
+      flash(`KSH ${amount} added to your wallet via ${selectedMethod.toUpperCase()}!`, 'success');
+      updateUI();
+    }
+
+    function logout() {
+      if (confirm('Logout?')) {
+        localStorage.removeItem('blacklord_current_user');
+        window.location.href = '1_index.html';
+      }
+    }
+
+    document.getElementById('topupModal').addEventListener('click', function(e) {
+      if (e.target === this) closeTopUp();
+    });
+
+    window.openTopUp = openTopUp;
+    window.closeTopUp = closeTopUp;
+    window.selectMethod = selectMethod;
+    window.confirmTopUp = confirmTopUp;
+    window.logout = logout;
+    window.flash = flash;
+    console.log('🚀 BLACKLORD BOT HOST dashboard ready.');
+  </script>
+</body>
+</html>

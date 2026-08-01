@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/5_server.js" },
+    { "source": "/", "destination": "/1_index.html" },
+    { "source": "/register", "destination": "/2_register.html" },
+    { "source": "/dashboard", "destination": "/3_dashboard.html" },
+    { "source": "/admin", "destination": "/4_admin.html" }
+  ],
+  "builds": [
+    { "src": "5_server.js", "use": "@vercel/node" },
+    { "src": "*.html", "use": "@vercel/static" }
+  ]
+}
